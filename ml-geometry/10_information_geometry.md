@@ -1,4 +1,6 @@
-# 10 — Information Geometry: The Fisher–Rao Metric and Natural Gradient
+# 10 — Information Geometry: The Fisher–Rao Metric and Natural Gradient (PSTAT 126)
+
+### Inspired by Karen Grigorian's PSTAT 126 course
 
 **Cross-references.** `ml-geometry/NOTATION_ML.md` (typing conventions §1.1,
 citation key §3.1); `notes/NOTATION.md` §2.3 (Riemannian metric $g$) and

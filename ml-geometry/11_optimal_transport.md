@@ -1,6 +1,6 @@
 # 11 — Optimal Transport: Wasserstein Distance and Sinkhorn (PSTAT 126)
 
-### Inspired by Karen Grigorian PhD
+### Inspired by Karen Grigorian's PSTAT 126 course
 
 **Cross-references.** `ml-geometry/NOTATION_ML.md` (typing §1.2, citation
 key §3.1–3.2); `notes/06_measure_theory_bridge.md` (Radon measures, DCT —

@@ -1,5 +1,7 @@
 # 14 — Geometric Measure Theory for Shapes: Point Clouds, Meshes, and Registration
 
+### Inspired by Karen Grigorian PhD
+
 **Cross-references.** `ml-geometry/NOTATION_ML.md` (typing §1.5, citation
 key §3.1–3.2); `notes/07_rectifiability_and_hausdorff_measure.md` (Lipschitz
 maps, the linear-map area formula — reused directly in §3); `notes/06_measure_theory_bridge.md`

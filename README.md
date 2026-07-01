@@ -3,7 +3,7 @@
 Personal, self-directed notes on geometric measure theory (GMT) in the
 context of manifolds outside the realm of smoothness and differentiability —
 similar in spirit to how the Lebesgue integral extends the reach of the
-Riemann integral.
+Riemann integral. Most content is inspired by the time I was introduced to PSTAT 126 (intro linear regression) but instead taught by a slightly more rigorous professor who went into measure theory, functional data analysis (mainly around Mercer's thm & Hilbert projections), continuous stochastic processes, machine learning methods via neural nets and manifolds. Content is directly inspired by the content taught in my PSTAT 126 (PSTAT 210, MATH 228B, PSTAT 221A, MATH 240B, PSTAT 213, PSTAT 220C, PSTAT 236 )
 
 ## How to read these notes
 
