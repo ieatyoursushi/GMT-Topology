@@ -1,1119 +1,707 @@
-# Differential Geometry Notes for a GMT-Topology Path
+# Differential Geometry Foundations for a GMT-Topology Path
 
-**Audience.** Curious accelerated undergraduate with strong multivariable-calculus intuition, informal exposure to manifolds/forms/topology, and a long-term goal of understanding geometric measure theory (GMT), especially spaces that are not assumed smooth.
+**Audience.** Curious accelerated undergraduate with strong multivariable-calculus
+intuition, informal exposure to manifolds/forms/topology, and a long-term goal of
+understanding geometric measure theory (GMT) — especially spaces that are not
+assumed smooth.
 
-**Repository role.** This file is the smooth-differential-geometry foundation for a repo about analyzing manifolds through the lens of measure, topology, and weak/non-smooth geometry.
+**Repository role.** This is the **survey/hub** document: it walks the entire
+arc from Euclidean calculus to the smooth-to-GMT bridge at a pace fast enough to
+see the whole shape, but with every object fully typed and at least one theorem
+proved from scratch per major stage. Full-depth treatments of each stage live in
+`notes/02`–`09`; this file links to them at the point where they take over.
 
 **Core idea.**
 
-> Differential geometry studies spaces where calculus works locally.  
-> GMT asks how much of that geometric calculus survives when the space is only measurable, rectifiable, finite-perimeter, varifold-like, current-like, or otherwise not classically smooth.
+> Differential geometry studies spaces where calculus works locally.
+> GMT asks how much of that geometric calculus survives when the space is only
+> measurable, rectifiable, of finite perimeter, varifold-like, current-like, or
+> otherwise not classically smooth.
+
+**Cross-references.** `notes/NOTATION.md` (typing conventions, global context,
+citation key — read first); `01_prerequisite_systematic_review_for_GMT_Topology.md`
+(what background each stage below draws on); `notes/02`–`09` (full-depth
+treatment of each stage, with proofs).
 
 ---
 
-## 0. Mental Model
+## 0. Standing Definitions
 
-### 0.1 The local-to-global principle
-
-A smooth manifold is a space that may be globally curved, twisted, or topologically nontrivial, but locally behaves like Euclidean space.
-
-Formally, an $n$-dimensional smooth manifold $M$ is a set equipped with enough structure so that near every point $p \in M$, there is a chart
+Everything below additionally uses the global typing context of
+`notes/NOTATION.md` §2. Restated here because they are used immediately:
 
 $$
-\varphi: U \subseteq M \to \varphi(U) \subseteq \mathbb{R}^n.
+M \quad \text{a smooth manifold}, \qquad \dim M = n \in \mathbb{Z}_{\ge 0},
+\qquad p \in M, \qquad U \subseteq \mathbb{R}^n \text{ open}.
 $$
 
-The local coordinate variables are usually written
-
 $$
-(x^1,\dots,x^n).
+T_pM \quad \text{tangent space at } p, \qquad T_p^*M = \operatorname{Hom}(T_pM,\mathbb{R}) \quad \text{cotangent space at } p.
 $$
 
-The point is not that $M$ literally is $\mathbb{R}^n$. The point is that calculus on $M$ is performed by moving locally into $\mathbb{R}^n$, doing calculus there, then checking that the result does not depend on the coordinate system.
+$$
+\Omega^k(M) \quad \text{smooth $k$-forms on } M, \qquad d : \Omega^k(M) \to \Omega^{k+1}(M) \quad \text{exterior derivative}.
+$$
 
-### 0.2 The three layers
+$$
+g \quad \text{a Riemannian metric on } M, \qquad g_p : T_pM \times T_pM \to \mathbb{R} \text{ symmetric, bilinear, positive-definite}.
+$$
 
-| Layer | Object | Intuition |
-|---|---|---|
-| Topological layer | $M$ as a space | What points are near each other? What is continuous? |
-| Smooth layer | charts with smooth transitions | What does differentiability mean? |
-| Metric / geometric layer | $g$, connection, curvature | How do we measure length, angle, volume, bending? |
+$$
+\mathcal{H}^k \quad k\text{-dimensional Hausdorff measure}, \qquad E \subseteq \mathbb{R}^n \quad \text{a Lebesgue/Hausdorff-measurable set}.
+$$
 
-GMT weakens the smooth layer and tries to retain enough of the metric/measure/integration layer to still do geometry.
+Throughout, Einstein summation is in force (`notes/NOTATION.md` §2.5): a Latin
+index repeated once up and once down in a single term is summed over
+$1,\dots,n$.
 
 ---
 
-## 1. Euclidean Calculus as the Seed
+## 1. Mental Model
 
-Before manifolds, everything lives in open subsets of Euclidean space.
+### 1.1 The local-to-global principle
 
-Let
-
-$$
-U \subseteq \mathbb{R}^n.
-$$
-
-A scalar field is a function
+A smooth manifold is a space that may be globally curved, twisted, or
+topologically nontrivial, but locally behaves like Euclidean space. Formally:
 
 $$
-f: U \to \mathbb{R}.
+\varphi : U \subseteq M \to \varphi(U) \subseteq \mathbb{R}^n,
+\qquad
+U \text{ open}, \qquad \varphi \text{ a homeomorphism onto its image (a chart)}.
 $$
 
-A vector field is a function
+The local coordinate variables produced by $\varphi$ are written
+
+$$
+(x^1,\dots,x^n) = \varphi(p) \in \mathbb{R}^n, \qquad p \in U.
+$$
+
+> **Type-check.** The point is not that $M$ *literally is* $\mathbb{R}^n$. The
+> point is that $\varphi$ is a map with a precise type, $U \to \mathbb{R}^n$,
+> and calculus on $M$ is performed by moving through $\varphi$ into
+> $\mathbb{R}^n$, doing ordinary calculus there, then checking the result does
+> not depend on which chart $\varphi$ was chosen.
+
+### 1.2 The three layers
+
+| Layer | Object | Type | Intuition |
+|---|---|---|---|
+| Topological | $M$ as a space | a set with a topology | What points are near each other? What is continuous? |
+| Smooth | an atlas $\{(U_\alpha,\varphi_\alpha)\}$ | charts with $C^\infty$ transition maps | What does differentiability mean? |
+| Metric/geometric | $g$, $\nabla$, $R$ | $g_p: T_pM\times T_pM\to\mathbb{R}$, etc. | How do we measure length, angle, volume, bending? |
+
+GMT weakens the smooth layer and asks how much of the metric/measure/
+integration layer survives regardless.
+
+Full definitions of charts, atlases, and the smooth-manifold axioms: see
+`notes/02_manifolds_and_tangent_spaces.md` §1–2.
+
+---
+
+## 2. Euclidean Calculus as the Seed
+
+Before manifolds, everything lives in an open subset of Euclidean space.
+
+A **scalar field** is
+
+$$
+f: U \to \mathbb{R}, \qquad U \subseteq \mathbb{R}^n \text{ open}.
+$$
+
+A **vector field** is
 
 $$
 F: U \to \mathbb{R}^n,
 \qquad
-F(x)=\big(F^1(x),\dots,F^n(x)\big).
-$$
-
-A curve is a function
-
-$$
-\gamma: I \to \mathbb{R}^n,
+F(x) = \big(F^1(x),\dots,F^n(x)\big),
 \qquad
-I \subseteq \mathbb{R}.
+F^i : U \to \mathbb{R} \text{ for each } i.
 $$
 
-A parametrized surface is a function
+A **curve** is
 
 $$
-X: \Omega \to \mathbb{R}^3,
-\qquad
-\Omega \subseteq \mathbb{R}^2.
+\gamma : I \to \mathbb{R}^n, \qquad I \subseteq \mathbb{R} \text{ an interval}.
 $$
 
-More generally, a parametrized $k$-dimensional object in $\mathbb{R}^n$ is a map
+A **parametrized surface** is
 
 $$
-X: \Omega \subseteq \mathbb{R}^k \to \mathbb{R}^n.
+X : \Omega \to \mathbb{R}^3, \qquad \Omega \subseteq \mathbb{R}^2 \text{ open}.
 $$
 
-This is the primitive form of a $k$-dimensional manifold sitting inside an ambient $n$-dimensional space.
+More generally, a **parametrized $k$-dimensional object** in $\mathbb{R}^n$ is a map
+
+$$
+X : \Omega \to \mathbb{R}^n, \qquad \Omega \subseteq \mathbb{R}^k \text{ open}, \qquad k \le n.
+$$
+
+This is the primitive form of a $k$-dimensional manifold sitting inside an
+$n$-dimensional ambient space — and, later, the primitive form of a
+Lipschitz parametrization of a rectifiable set (`notes/07`).
 
 ---
 
-## 2. Derivatives as Linear Maps
+## 3. Derivatives as Linear Maps
 
-The derivative of a map is not fundamentally a slope. It is a best linear approximation.
-
-Let
-
-$$
-F: U \subseteq \mathbb{R}^n \to \mathbb{R}^m.
-$$
-
-At a point $p \in U$, the derivative is a linear map
+The derivative of a map is not fundamentally a slope. It is the best linear
+approximation to the map near a point.
 
 $$
-DF_p: \mathbb{R}^n \to \mathbb{R}^m.
+F : U \to \mathbb{R}^m, \qquad U \subseteq \mathbb{R}^n \text{ open}.
 $$
 
-In coordinates, this linear map is represented by the Jacobian matrix
+At $p \in U$, the derivative is a linear map
 
 $$
-J_F(p)
-=
+DF_p : \mathbb{R}^n \to \mathbb{R}^m,
+\qquad
+F(p+h) = F(p) + DF_p(h) + o(\lVert h\rVert) \text{ as } h \to 0.
+$$
+
+In the standard bases, $DF_p$ is represented by the **Jacobian matrix**
+
+$$
+J_F(p) =
 \begin{bmatrix}
-\frac{\partial F^1}{\partial x^1}(p) & \cdots & \frac{\partial F^1}{\partial x^n}(p)\\
-\vdots & \ddots & \vdots\\
-\frac{\partial F^m}{\partial x^1}(p) & \cdots & \frac{\partial F^m}{\partial x^n}(p)
-\end{bmatrix}.
+\dfrac{\partial F^1}{\partial x^1}(p) & \cdots & \dfrac{\partial F^1}{\partial x^n}(p)\\[4pt]
+\vdots & \ddots & \vdots\\[4pt]
+\dfrac{\partial F^m}{\partial x^1}(p) & \cdots & \dfrac{\partial F^m}{\partial x^n}(p)
+\end{bmatrix}
+\in \mathbb{R}^{m\times n}.
 $$
 
-If $v \in \mathbb{R}^n$, then
+For $v \in \mathbb{R}^n$, $DF_p(v) \in \mathbb{R}^m$ is the directional output
+velocity of $F$ at $p$ in the input direction $v$.
+
+### 3.1 Manifold translation
+
+On manifolds this becomes
 
 $$
-DF_p(v)
+dF_p : T_pM \to T_{F(p)}N, \qquad F : M \to N \text{ smooth}.
 $$
 
-is the directional output velocity of $F$ at $p$ in input direction $v$.
-
-### Manifold translation
-
-On manifolds, this becomes
-
-$$
-dF_p: T_pM \to T_{F(p)}N.
-$$
-
-So the deep version of the Jacobian is:
-
-> A derivative maps tangent directions in the domain to tangent directions in the codomain.
+> **Primitive-vs-derived.** The Jacobian matrix is a *coordinate
+> representation* of $DF_p$; $DF_p$ itself is the coordinate-free linear map.
+> On a manifold, $dF_p$ is the primitive object and any matrix representing it
+> depends on the charts chosen on $M$ and $N$. Full construction and the
+> chart-change (Jacobian conjugation) law: `notes/02` §3.
 
 ---
 
-## 3. Curves, Tangents, and Arc Length
+## 4. Curves, Tangents, and Arc Length
 
-Let
-
-$$
-\gamma: I \to \mathbb{R}^n
-$$
-
-be a differentiable curve. Its velocity is
+Let $\gamma : I \to \mathbb{R}^n$ be $C^1$. Its **velocity** is
 
 $$
-\gamma'(t)=\frac{d\gamma}{dt}(t)\in \mathbb{R}^n.
+\gamma'(t) = \frac{d\gamma}{dt}(t) \in \mathbb{R}^n, \qquad t \in I.
 $$
 
-The tangent line at $\gamma(t_0)$ is determined by the vector $\gamma'(t_0)$.
-
-The speed is
-
-$$
-\|\gamma'(t)\|.
-$$
-
-The arc length of $\gamma$ from $a$ to $b$ is
+The **speed** is $\lVert \gamma'(t)\rVert \in [0,\infty)$. The **arc length**
+of $\gamma$ from $a$ to $b$ is
 
 $$
-L(\gamma)
-=
-\int_a^b \|\gamma'(t)\|\,dt.
+L(\gamma) = \int_a^b \lVert\gamma'(t)\rVert\,dt \in [0,\infty], \qquad a,b \in I, \ a \le b.
 $$
 
-This is already a measure-like idea: a 1-dimensional object is measured using a 1-dimensional integral, even if the object lives in $\mathbb{R}^n$.
+This is already a measure-like idea: a 1-dimensional object is measured by a
+1-dimensional integral, even though it may live inside $\mathbb{R}^n$ for
+$n > 1$. It is the $n=1$, smooth special case of $\mathcal{H}^1$ (`notes/06`
+§5).
 
-### Reparametrization
+### 4.1 Reparametrization
 
-If
+If $\tilde\gamma(s) = \gamma(\phi(s))$ for a $C^1$ monotone bijection
+$\phi : J \to I$, then $\tilde\gamma$ and $\gamma$ trace the same geometric
+curve, even though $\tilde\gamma'(s) = \gamma'(\phi(s))\,\phi'(s) \ne \gamma'(t)$
+in general.
 
-$$
-\tilde{\gamma}(s)=\gamma(\phi(s))
-$$
-
-for a smooth monotone change of parameter $\phi$, then the geometric curve is the same, even though the coordinate speed changes.
-
-A good differential-geometric object should not depend on the arbitrary parameter chosen to describe it.
+> **Type-check.** A well-formed differential-geometric quantity should not
+> depend on the arbitrary parametrization chosen to compute it. $L(\gamma)$
+> passes this check (verify by substitution); the raw velocity vector
+> $\gamma'(t)$, as a number attached to a specific $t$, does not directly —
+> only the *reparametrization-covariant* structure of $\gamma'$ survives.
 
 ---
 
-## 4. Line Integrals
+## 5. Line Integrals
 
-### 4.1 Scalar line integral
-
-Let
+### 5.1 Scalar line integral
 
 $$
-f:\mathbb{R}^n\to \mathbb{R},
+f : \mathbb{R}^n \to \mathbb{R}, \qquad \gamma : [a,b] \to \mathbb{R}^n \text{ ($C^1$)}.
+$$
+
+$$
+\int_\gamma f\,ds := \int_a^b f(\gamma(t))\,\lVert\gamma'(t)\rVert\,dt \ \in \mathbb{R}.
+$$
+
+This integrates a scalar density over a curve; it does not depend on
+orientation of $\gamma$.
+
+### 5.2 Vector line integral
+
+$$
+F : \mathbb{R}^n \to \mathbb{R}^n.
+$$
+
+$$
+\int_\gamma F \cdot d\mathbf{r} := \int_a^b F(\gamma(t)) \cdot \gamma'(t)\,dt \ \in \mathbb{R}.
+$$
+
+This *is* orientation-sensitive: reversing the orientation of $\gamma$ negates
+the integral.
+
+### 5.3 Differential-form translation
+
+A vector field $F = (P,Q,R) : \mathbb{R}^3 \to \mathbb{R}^3$ corresponds to the
+1-form
+
+$$
+\omega = P\,dx + Q\,dy + R\,dz \ \in \Omega^1(\mathbb{R}^3),
+$$
+
+and
+
+$$
+\int_\gamma F\cdot d\mathbf{r} = \int_\gamma \omega.
+$$
+
+This is the beginning of forms replacing vector-calculus notation; full
+treatment in `notes/03`.
+
+---
+
+## 6. Conservative Fields and Potential Functions
+
+$$
+F : U \to \mathbb{R}^n, \qquad U \subseteq \mathbb{R}^n \text{ open},
+$$
+
+is **conservative** if there exists $f : U \to \mathbb{R}$ with
+
+$$
+F = \nabla f.
+$$
+
+**Theorem (Fundamental theorem for line integrals).** If $F = \nabla f$ on
+$U$ and $\gamma : [a,b] \to U$ is $C^1$, then
+
+$$
+\int_\gamma F \cdot d\mathbf{r} = f(\gamma(b)) - f(\gamma(a)).
+$$
+
+*(Spivak, CoM, Ch. 4; a direct consequence of the single-variable FTC applied
+to $t \mapsto f(\gamma(t))$ via the chain rule.)*
+
+So a conservative field has path-independent line integrals. In form language,
+
+$$
+F = \nabla f \iff \omega = df, \qquad df \in \Omega^1(U) \text{ the exterior derivative of the 0-form } f.
+$$
+
+### 6.1 Exact vs. closed
+
+$\omega \in \Omega^1(U)$ is **exact** if $\omega = df$ for some
+$f \in \Omega^0(U)$; it is **closed** if $d\omega = 0$.
+
+**Proposition.** Every exact 1-form is closed: $d(df) = d^2f = 0$.
+
+The converse depends on the topology of $U$: on a simply connected domain,
+closed 1-forms are exact (Poincaré lemma, `notes/05` §3); on domains with
+holes, closed does not imply exact (`notes/05` §4). This is where topology
+enters the calculus.
+
+---
+
+## 7. From Euclidean Domains to Manifolds
+
+### 7.1 Topological manifold
+
+An $n$-dimensional **topological manifold** is a topological space $M$ (usually
+also required Hausdorff and second-countable, `notes/02` §1) such that every
+$p \in M$ has an open neighborhood $U \subseteq M$ and a homeomorphism
+
+$$
+\varphi : U \to \varphi(U) \subseteq \mathbb{R}^n.
+$$
+
+A **chart** is the pair $(U,\varphi)$; an **atlas** is a collection of charts
+whose domains cover $M$.
+
+### 7.2 Smooth manifold
+
+A **smooth manifold** is a topological manifold equipped with an atlas whose
+charts are smoothly compatible: for overlapping charts $(U,\varphi)$,
+$(V,\psi)$ with $U \cap V \ne \varnothing$, the **transition map**
+
+$$
+\psi \circ \varphi^{-1} : \varphi(U\cap V) \to \psi(U\cap V)
+$$
+
+is a $C^\infty$ diffeomorphism between open subsets of $\mathbb{R}^n$.
+
+> **Type-check.** $\varphi$ and $\psi$ each have type $M \supseteq (\cdot) \to
+> \mathbb{R}^n$; they are not directly composable. $\psi\circ\varphi^{-1}$ is
+> the well-typed composite $\mathbb{R}^n \supseteq (\cdot) \to \mathbb{R}^n
+> \supseteq (\cdot)$, and *that* is the object required to be smooth. The
+> smoothness condition is a statement about a map between open sets of
+> $\mathbb{R}^n$ — ordinary multivariable calculus — even though it encodes a
+> global compatibility condition on $M$.
+
+Full atlas/manifold construction, including the point-set hypotheses that
+prevent pathological gluings: `notes/02` §1–2.
+
+---
+
+## 8. Tangent Spaces
+
+For $p \in M$, the tangent space $T_pM$ is an $n$-dimensional real vector space
+attached to $p$. Three equivalent constructions (proved equivalent in
+`notes/02` §3):
+
+**(i) Velocities of curves.** $\gamma : (-\varepsilon,\varepsilon) \to M$,
+$\gamma(0) = p$; $\gamma'(0)$ represents a tangent vector, with two curves
+identified when their images under any chart have the same derivative at $0$.
+
+**(ii) Derivations.** $v : C^\infty(M) \to \mathbb{R}$ linear, satisfying the
+Leibniz rule at $p$:
+
+$$
+v(af+bg) = a\,v(f) + b\,v(g), \qquad v(fg) = f(p)\,v(g) + g(p)\,v(f), \qquad a,b\in\mathbb{R},\ f,g\in C^\infty(M).
+$$
+
+**(iii) Coordinate basis.** Given a chart with coordinates
+$(x^1,\dots,x^n)$, $T_pM$ has basis
+
+$$
+\left\{ \frac{\partial}{\partial x^1}\Big|_p, \dots, \frac{\partial}{\partial x^n}\Big|_p \right\},
 \qquad
-\gamma:[a,b]\to \mathbb{R}^n.
+v = v^i \frac{\partial}{\partial x^i}\Big|_p \in T_pM, \qquad v^i \in \mathbb{R}.
 $$
 
-The scalar line integral is
-
-$$
-\int_\gamma f\,ds
-=
-\int_a^b f(\gamma(t))\|\gamma'(t)\|\,dt.
-$$
-
-This integrates a scalar density over a curve.
-
-### 4.2 Vector line integral
-
-Let
-
-$$
-F:\mathbb{R}^n\to \mathbb{R}^n.
-$$
-
-The vector line integral is
-
-$$
-\int_\gamma F\cdot d\mathbf{r}
-=
-\int_a^b F(\gamma(t))\cdot \gamma'(t)\,dt.
-$$
-
-This is orientation-sensitive. Reversing the orientation of the curve changes the sign.
-
-### Differential-form translation
-
-A vector field
-
-$$
-F=(P,Q,R)
-$$
-
-in $\mathbb{R}^3$ corresponds to the 1-form
-
-$$
-\omega = P\,dx+Q\,dy+R\,dz.
-$$
-
-Then
-
-$$
-\int_\gamma F\cdot d\mathbf{r}
-=
-\int_\gamma \omega.
-$$
-
-This is the beginning of forms replacing vector calculus notation.
+> **Type-check.** Definition (ii) is the one that makes precise the slogan "a
+> tangent vector is a direction, without reference to any ambient embedding
+> or chart" — it typechecks purely in terms of $C^\infty(M) \to \mathbb{R}$,
+> using no coordinates at all. The full proof that (i), (ii), and (iii)
+> define isomorphic $n$-dimensional vector spaces is the anchor proof of
+> `notes/02`.
 
 ---
 
-## 5. Conservative Fields and Potential Functions
+## 9. Vector Fields and Flows
 
-A vector field
-
-$$
-F:U\subseteq \mathbb{R}^n\to \mathbb{R}^n
-$$
-
-is conservative if there exists a scalar function
+A **vector field** assigns a tangent vector to each point:
 
 $$
-f:U\to \mathbb{R}
+X : M \to TM, \qquad X(p) \in T_pM \text{ for each } p, \qquad TM = \bigsqcup_{p\in M} T_pM.
 $$
 
-such that
+In coordinates, $X = X^i \,\partial/\partial x^i$, $X^i \in C^\infty(U)$.
+
+A **flow line** (integral curve) of $X$ is $\gamma : I \to M$ with
 
 $$
-F=\nabla f.
+\gamma'(t) = X(\gamma(t)), \qquad t \in I.
 $$
 
-Then for any smooth curve
-
-$$
-\gamma:[a,b]\to U,
-$$
-
-the fundamental theorem for line integrals says
-
-$$
-\int_\gamma F\cdot d\mathbf{r}
-=
-f(\gamma(b))-f(\gamma(a)).
-$$
-
-So a conservative field has path-independent line integrals.
-
-In differential-form language:
-
-$$
-F=\nabla f
-\quad\Longleftrightarrow\quad
-\omega = df.
-$$
-
-Here $df$ is the exterior derivative of the 0-form $f$.
-
-### Exact vs closed
-
-A 1-form $\omega$ is exact if
-
-$$
-\omega=df
-$$
-
-for some 0-form $f$.
-
-A 1-form is closed if
-
-$$
-d\omega=0.
-$$
-
-Every exact form is closed:
-
-$$
-d(df)=d^2f=0.
-$$
-
-The converse depends on topology. On a simply connected domain, closed 1-forms often behave like exact forms. On spaces with holes, closed does not always imply exact.
-
-This is where topology enters the calculus.
+So an ODE is geometrically the rule: *the tangent vector of the curve must
+equal the vector field at each point.* This is why flows and ODE existence
+theory are intrinsically differential-geometric (see `01` §9).
 
 ---
 
-## 6. From Euclidean Domains to Manifolds
-
-### 6.1 Topological manifold
-
-An $n$-dimensional topological manifold is a space $M$ such that every point $p\in M$ has a neighborhood $U\subseteq M$ homeomorphic to an open subset of $\mathbb{R}^n$.
-
-That means there exists a map
-
-$$
-\varphi:U\to \varphi(U)\subseteq \mathbb{R}^n
-$$
-
-such that $\varphi$ is continuous, bijective, and has continuous inverse.
-
-A chart is the pair
-
-$$
-(U,\varphi).
-$$
-
-An atlas is a collection of charts covering $M$.
-
-### 6.2 Smooth manifold
-
-A smooth manifold is a topological manifold whose charts are smoothly compatible.
-
-If two charts overlap,
-
-$$
-(U,\varphi),
-\qquad
-(V,\psi),
-\qquad
-U\cap V\neq \varnothing,
-$$
-
-then the transition map is
-
-$$
-\psi\circ \varphi^{-1}:
-\varphi(U\cap V)\to \psi(U\cap V).
-$$
-
-The atlas is smooth if all transition maps are smooth.
-
-This condition means: calculus done in one coordinate system agrees smoothly with calculus done in another coordinate system.
-
----
-
-## 7. Tangent Spaces
-
-For each point $p\in M$, the tangent space is denoted
-
-$$
-T_pM.
-$$
-
-It is an $n$-dimensional vector space attached to $p$.
-
-There are several equivalent ways to define it.
-
-### 7.1 Tangent vectors as velocities of curves
-
-A tangent vector at $p$ can be thought of as the velocity of a curve passing through $p$.
-
-Let
-
-$$
-\gamma:(-\varepsilon,\varepsilon)\to M
-$$
-
-with
-
-$$
-\gamma(0)=p.
-$$
-
-Then $\gamma'(0)$ represents a tangent vector in $T_pM$.
-
-Two curves represent the same tangent vector if they have the same derivative in local coordinates.
-
-### 7.2 Tangent vectors as derivations
-
-A tangent vector can also be defined as an operator
-
-$$
-v:C^\infty(M)\to \mathbb{R}
-$$
-
-satisfying linearity and the Leibniz rule:
-
-$$
-v(af+bg)=a\,v(f)+b\,v(g),
-$$
-
-$$
-v(fg)=f(p)v(g)+g(p)v(f).
-$$
-
-This definition is important because it does not require viewing $M$ as embedded in Euclidean space.
-
-### 7.3 Coordinate basis
-
-Given local coordinates
-
-$$
-(x^1,\dots,x^n),
-$$
-
-the tangent space $T_pM$ has coordinate basis
-
-$$
-\left\{
-\frac{\partial}{\partial x^1}\bigg|_p,
-\dots,
-\frac{\partial}{\partial x^n}\bigg|_p
-\right\}.
-$$
-
-Any tangent vector can be written
-
-$$
-v
-=
-v^i \frac{\partial}{\partial x^i}\bigg|_p,
-$$
-
-using Einstein summation convention.
-
-The repeated index $i$ means
-
-$$
-v
-=
-\sum_{i=1}^n v^i\frac{\partial}{\partial x^i}\bigg|_p.
-$$
-
----
-
-## 8. Vector Fields and Flows
-
-A vector field assigns a tangent vector to each point:
-
-$$
-X:M\to TM,
-\qquad
-X(p)\in T_pM.
-$$
-
-Here
-
-$$
-TM=\bigsqcup_{p\in M}T_pM
-$$
-
-is the tangent bundle.
-
-In local coordinates,
-
-$$
-X
-=
-X^i\frac{\partial}{\partial x^i}.
-$$
-
-A flow line or integral curve of $X$ is a curve
-
-$$
-\gamma:I\to M
-$$
-
-satisfying
-
-$$
-\gamma'(t)=X(\gamma(t)).
-$$
-
-Thus an ODE is geometrically a rule saying:
-
-> the tangent vector of the curve must equal the vector field at each point.
-
-This is why ODEs naturally live inside differential geometry.
-
----
-
-## 9. Cotangent Spaces and 1-Forms
-
-The cotangent space at $p$ is the dual vector space
+## 10. Cotangent Spaces and 1-Forms
 
 $$
 T_p^*M = \operatorname{Hom}(T_pM,\mathbb{R}).
 $$
 
-Elements of $T_p^*M$ are covectors.
-
-A 1-form is a smooth assignment
-
-$$
-\omega(p)\in T_p^*M.
-$$
-
-Given local coordinates
+A **1-form** is a smooth assignment $p \mapsto \omega(p) \in T_p^*M$. In the
+coordinate cotangent basis $\{dx^1|_p,\dots,dx^n|_p\}$ (dual to
+$\{\partial/\partial x^i|_p\}$), $\omega = \omega_i\,dx^i$, $\omega_i \in
+C^\infty(U)$, and
 
 $$
-(x^1,\dots,x^n),
+\omega(X) = \omega_i X^i \in C^\infty(M), \qquad X = X^i\,\partial/\partial x^i.
 $$
 
-the cotangent basis is
-
-$$
-\{dx^1|_p,\dots,dx^n|_p\}.
-$$
-
-A 1-form has local expression
-
-$$
-\omega
-=
-\omega_i\,dx^i.
-$$
-
-It eats a vector field and returns a scalar field:
-
-$$
-\omega(X)
-=
-\omega_iX^i.
-$$
-
-### Vector field vs 1-form
-
-A vector field is a direction at each point.
-
-A 1-form is a measurement device for directions at each point.
-
-A Riemannian metric can convert between them, but without a metric they are different types of objects.
+> **Type-check — primitive vs. derived.** A vector field is a direction at
+> each point: $X(p) \in T_pM$. A 1-form is a *measuring device* for
+> directions at each point: $\omega(p) \in T_p^*M = \operatorname{Hom}(T_pM,
+> \mathbb{R})$. These are dual types. A Riemannian metric $g$ can convert one
+> into the other (§16.1 below), but **without** a choice of $g$, they are
+> different kinds of objects and there is no canonical map between them.
 
 ---
 
-## 10. Differential Forms
+## 11. Differential Forms
 
-A $k$-form is an alternating multilinear map
-
-$$
-\omega_p:
-\underbrace{T_pM\times\cdots\times T_pM}_{k\text{ copies}}
-\to \mathbb{R}.
-$$
-
-The space of smooth $k$-forms on $M$ is denoted
+A $k$-form at $p$ is an alternating multilinear map
 
 $$
-\Omega^k(M).
+\omega_p : \underbrace{T_pM \times \cdots \times T_pM}_{k} \to \mathbb{R}, \qquad \omega_p \in \Lambda^k(T_p^*M).
 $$
 
-A $0$-form is a smooth function:
+$\Omega^k(M)$ denotes the smooth $k$-forms on $M$; $\Omega^0(M) = C^\infty(M)$.
+A 1-form eats one tangent vector; a 2-form eats two and measures oriented
+infinitesimal area; a 3-form eats three and measures oriented infinitesimal
+volume. On an $n$-manifold, $\Omega^k(M) = 0$ for $k > n$.
+
+The **wedge product**
 
 $$
-\Omega^0(M)=C^\infty(M).
+\wedge : \Omega^k(M) \times \Omega^\ell(M) \to \Omega^{k+\ell}(M)
 $$
 
-A 1-form eats one tangent vector.
-
-A 2-form eats two tangent vectors and measures oriented infinitesimal area.
-
-A 3-form eats three tangent vectors and measures oriented infinitesimal volume.
-
-On an $n$-dimensional manifold, the highest nonzero degree is $n$:
-
-$$
-\Omega^k(M)=0
-\qquad
-\text{for }k>n.
-$$
-
-### Wedge product
-
-The wedge product combines forms:
-
-$$
-\wedge:\Omega^k(M)\times \Omega^\ell(M)\to \Omega^{k+\ell}(M).
-$$
-
-It is antisymmetric:
-
-$$
-dx^i\wedge dx^j
-=
-- dx^j\wedge dx^i.
-$$
-
-In particular,
-
-$$
-dx^i\wedge dx^i=0.
-$$
-
-This encodes orientation and signed area/volume.
+is graded-antisymmetric: $dx^i \wedge dx^j = -dx^j\wedge dx^i$, so in
+particular $dx^i \wedge dx^i = 0$. Full construction from $\Lambda^k(V^*)$,
+including the proof that $\wedge$ is well-defined and associative:
+`notes/03` §1.
 
 ---
 
-## 11. Exterior Derivative
-
-The exterior derivative is an operator
+## 12. Exterior Derivative
 
 $$
-d:\Omega^k(M)\to \Omega^{k+1}(M).
+d : \Omega^k(M) \to \Omega^{k+1}(M), \qquad d^2 = 0 \text{ (i.e. } d(d\omega)=0 \text{ for every } \omega).
 $$
 
-It satisfies
+`notes/03` §2 proves $d^2=0$ in full as its anchor proof; here we record the
+low-degree formulas that recover ordinary vector calculus.
+
+### 12.1 Degree 0
+
+$f \in \Omega^0(M) \implies df \in \Omega^1(M)$, $df = \frac{\partial f}{\partial x^i}dx^i$
+— the gradient information, before any metric is chosen.
+
+### 12.2 Degree 1 in $\mathbb{R}^3$
+
+$\omega = P\,dx + Q\,dy + R\,dz \implies$
 
 $$
-d^2=0.
+d\omega = (Q_x - P_y)\,dx\wedge dy + (R_x - P_z)\,dx\wedge dz + (R_y - Q_z)\,dy\wedge dz.
 $$
 
-That is,
+This corresponds to curl, after using the Euclidean metric and orientation to
+identify 2-forms with vector fields.
+
+### 12.3 Degree 2 in $\mathbb{R}^3$
+
+$\eta = P\,dy\wedge dz + Q\,dz\wedge dx + R\,dx\wedge dy \implies$
 
 $$
-d(d\omega)=0
+d\eta = (P_x+Q_y+R_z)\,dx\wedge dy\wedge dz,
 $$
 
-for every differential form $\omega$.
+corresponding to divergence.
 
-This single identity contains many familiar vector-calculus identities.
+### 12.4 Translation table
 
-### 11.1 Degree 0
+| Form statement | Type | Vector-calculus shadow in $\mathbb{R}^3$ |
+|---|---|---|
+| $d : \Omega^0 \to \Omega^1$ | $C^\infty(M) \to \Omega^1(M)$ | gradient |
+| $d : \Omega^1 \to \Omega^2$ | $\Omega^1(M)\to\Omega^2(M)$ | curl |
+| $d : \Omega^2 \to \Omega^3$ | $\Omega^2(M)\to\Omega^3(M)$ | divergence |
+| $d^2=0$ | $\Omega^k(M)\to\Omega^{k+2}(M)$ is the zero map | $\nabla\times(\nabla f)=0$, $\nabla\cdot(\nabla\times F)=0$ |
 
-Let
-
-$$
-f\in \Omega^0(M).
-$$
-
-Then
-
-$$
-df\in \Omega^1(M).
-$$
-
-In coordinates,
-
-$$
-df
-=
-\frac{\partial f}{\partial x^i}dx^i.
-$$
-
-In Euclidean vector calculus, this is the gradient information.
-
-### 11.2 Degree 1 in $\mathbb{R}^3$
-
-Let
-
-$$
-\omega=P\,dx+Q\,dy+R\,dz.
-$$
-
-Then
-
-$$
-d\omega
-=
-(Q_x-P_y)\,dx\wedge dy
-+
-(R_x-P_z)\,dx\wedge dz
-+
-(R_y-Q_z)\,dy\wedge dz.
-$$
-
-This corresponds to curl after using the Euclidean metric and orientation to identify 2-forms with vector fields.
-
-### 11.3 Degree 2 in $\mathbb{R}^3$
-
-Let
-
-$$
-\eta
-=
-P\,dy\wedge dz
-+
-Q\,dz\wedge dx
-+
-R\,dx\wedge dy.
-$$
-
-Then
-
-$$
-d\eta
-=
-(P_x+Q_y+R_z)\,dx\wedge dy\wedge dz.
-$$
-
-This corresponds to divergence.
-
-### 11.4 Translation table
-
-| Form statement | Vector-calculus shadow in $\mathbb{R}^3$ |
-|---|---|
-| $d:\Omega^0\to\Omega^1$ | gradient |
-| $d:\Omega^1\to\Omega^2$ | curl |
-| $d:\Omega^2\to\Omega^3$ | divergence |
-| $d^2=0$ | $\nabla\times(\nabla f)=0$, $\nabla\cdot(\nabla\times F)=0$ |
-
-Important warning:
-
-> Gradient, curl, and divergence are not three unrelated miracles. They are coordinate/metric-dependent shadows of the exterior derivative in different degrees.
+> Gradient, curl, and divergence are not three unrelated identities to
+> memorize. They are the coordinate/metric-dependent shadows, in successive
+> degrees, of one operator: $d$, together with $d^2 = 0$.
 
 ---
 
-## 12. Pullbacks
+## 13. Pullbacks
 
-Let
-
-$$
-F:M\to N
-$$
-
-be a smooth map.
-
-The derivative pushes tangent vectors forward:
+$F : M \to N$ smooth. The derivative pushes tangent vectors forward:
 
 $$
-dF_p:T_pM\to T_{F(p)}N.
+dF_p : T_pM \to T_{F(p)}N.
 $$
 
 Forms pull back in the opposite direction:
 
 $$
-F^*:\Omega^k(N)\to \Omega^k(M).
+F^* : \Omega^k(N) \to \Omega^k(M), \qquad \omega \in \Omega^k(N) \implies F^*\omega \in \Omega^k(M).
 $$
 
-If $\omega\in\Omega^k(N)$, then $F^*\omega\in\Omega^k(M)$.
-
-This matters because integration on manifolds is usually computed by pulling a form back to a coordinate domain.
-
-For a parametrization
+For a parametrization $X : \Omega \to M$, $\Omega \subseteq \mathbb{R}^k$ open,
 
 $$
-X:\Omega\subseteq \mathbb{R}^k\to M,
+\int_{X(\Omega)} \omega = \int_\Omega X^*\omega.
 $$
 
-the integral over $X(\Omega)$ is computed as
-
-$$
-\int_{X(\Omega)}\omega
-=
-\int_\Omega X^*\omega.
-$$
-
-This is the clean intrinsic version of substitution/Jacobians.
+This is the coordinate-free version of substitution/Jacobians, and it is
+exactly the computational tool that later produces the area formula
+(`notes/07` §3) once $X$ is only assumed Lipschitz rather than smooth.
 
 ---
 
-## 13. Orientation and Boundary
+## 14. Orientation and Boundary
 
-An orientation on an $n$-manifold is a consistent choice of positive ordered basis in each tangent space.
-
-For a surface in $\mathbb{R}^3$, orientation is often represented by a choice of normal vector.
-
-For an oriented manifold $M$ with boundary, the boundary is denoted
-
-$$
-\partial M.
-$$
-
-The boundary inherits an orientation from $M$.
-
-Examples:
+An **orientation** on an $n$-manifold is a consistent choice of positively
+ordered basis in each tangent space. For an oriented manifold-with-boundary
+$M$, the **boundary** $\partial M$ is an $(n-1)$-manifold, inheriting an
+orientation from $M$.
 
 | $M$ | $\partial M$ |
 |---|---|
-| interval $[a,b]$ | endpoints $b-a$ as oriented 0-boundary |
+| interval $[a,b]$ | endpoints, oriented as $b - a$ |
 | disk $D^2$ | circle $S^1$ |
 | solid ball $B^3$ | sphere $S^2$ |
-| closed sphere $S^2$ | empty boundary |
+| closed sphere $S^2$ | $\varnothing$ |
 
-The slogan:
-
-> Boundaries are one dimension lower.
-
-If
-
-$$
-\dim M=k,
-$$
-
-then
-
-$$
-\dim \partial M=k-1.
-$$
+Slogan: boundaries are one dimension lower. If $\dim M = k$ then
+$\dim \partial M = k-1$.
 
 ---
 
-## 14. Integration on Manifolds
+## 15. Integration on Manifolds
 
-A $k$-form naturally integrates over an oriented $k$-dimensional manifold.
+If $\omega \in \Omega^k(M)$ and $S \subseteq M$ is oriented and
+$k$-dimensional, then $\int_S \omega$ is defined (via pullback to
+coordinates, §13).
 
-If
+> **Type-check — the degree-matching rule.** $k$-forms integrate over
+> oriented $k$-dimensional objects, and *only* over such objects. This is
+> more structural than memorizing $ds$, $dA$, $dV$ as separate notations:
+> those are measure elements, while forms additionally encode orientation.
 
-$$
-\omega\in\Omega^k(M)
-$$
-
-and $S\subseteq M$ is oriented $k$-dimensional, then
-
-$$
-\int_S \omega
-$$
-
-is defined.
-
-Degree matching is essential:
-
-$$
-\text{$k$-forms integrate over $k$-dimensional oriented objects.}
-$$
-
-Examples:
-
-| Object | Dimension | Integrand |
+| Object | Dimension | Integrand type |
 |---|---:|---|
-| curve | 1 | 1-form |
-| surface | 2 | 2-form |
-| volume | 3 | 3-form |
-| $k$-submanifold | $k$ | $k$-form |
-
-This is more structural than memorizing $ds$, $dA$, $dV$.
-
-Those are measure elements; forms also encode orientation.
+| curve | 1 | $\omega \in \Omega^1$ |
+| surface | 2 | $\omega \in \Omega^2$ |
+| volume | 3 | $\omega \in \Omega^3$ |
+| $k$-submanifold | $k$ | $\omega \in \Omega^k$ |
 
 ---
 
-## 15. Generalized Stokes Theorem
+## 16. Generalized Stokes Theorem
 
-Let $M$ be an oriented smooth $k$-manifold with boundary $\partial M$. Let
-
-$$
-\omega\in\Omega^{k-1}(M).
-$$
-
-Then
+**Theorem (Stokes).** Let $M$ be an oriented smooth $k$-manifold with boundary
+$\partial M$ (with induced orientation), and let $\omega \in \Omega^{k-1}(M)$
+have compact support. Then
 
 $$
-\boxed{
-\int_M d\omega
-=
-\int_{\partial M}\omega
-}
+\boxed{\int_M d\omega = \int_{\partial M} \omega.}
 $$
 
-This is the generalized Stokes theorem.
+*(Lee, ISM, Thm 16.11; proved in full, including the boundary-chart case, in
+`notes/03` §3.)*
 
-It says:
+This says: the integral of a derivative over an interior equals the integral
+of the original quantity over the boundary. It does **not** say the boundary
+determines all interior information — only that this specific
+derivative-accumulation has a boundary representation.
 
-> The integral of a derivative over an interior equals the integral of the original quantity over the boundary.
-
-But this does **not** mean the boundary contains all information about the interior. It means this specific derivative-type accumulation has a boundary representation.
-
-### 15.1 Special cases
+### 16.1 Special cases
 
 | Theorem | $M$ | $\partial M$ | Form degree |
 |---|---|---|---|
 | Fundamental theorem of calculus | interval | endpoints | 0-form |
-| Fundamental theorem for line integrals | curve | endpoints | 0-form |
+| FT for line integrals | curve | endpoints | 0-form |
 | Green's theorem | planar region | boundary curve | 1-form |
-| Classical Stokes theorem | surface | boundary curve | 1-form |
+| Classical Stokes | surface | boundary curve | 1-form |
 | Divergence theorem | solid region | boundary surface | 2-form |
 
-### 15.2 Why this matters for GMT
+Each is the general theorem specialized to a particular $(M,\partial M,
+\omega)$ triple; `notes/03` §4 derives each as a typed corollary.
 
-GMT generalizes the objects $M$ and $\partial M$.
+### 16.2 Why this matters for GMT
 
-Instead of requiring $M$ to be a smooth manifold, GMT may work with currents, rectifiable sets, sets of finite perimeter, or varifolds.
-
-The question becomes:
-
-> Can we still define boundary, tangent planes, orientation, area, and integration when the object is not smooth?
-
----
-
-## 16. Riemannian Metrics
-
-A smooth manifold has calculus, but not automatically lengths or angles.
-
-A Riemannian metric assigns an inner product to each tangent space:
-
-$$
-g_p:T_pM\times T_pM\to \mathbb{R}.
-$$
-
-For each $p\in M$, $g_p$ is symmetric, bilinear, and positive definite.
-
-In local coordinates,
-
-$$
-g
-=
-g_{ij}\,dx^i\otimes dx^j.
-$$
-
-For tangent vectors
-
-$$
-v=v^i\frac{\partial}{\partial x^i},
-\qquad
-w=w^j\frac{\partial}{\partial x^j},
-$$
-
-their inner product is
-
-$$
-g(v,w)
-=
-g_{ij}v^iw^j.
-$$
-
-The length of $v$ is
-
-$$
-\|v\|_g=\sqrt{g(v,v)}.
-$$
-
-The angle between nonzero $v,w$ is determined by
-
-$$
-\cos \theta
-=
-\frac{g(v,w)}{\|v\|_g\|w\|_g}.
-$$
-
-A Riemannian manifold is a pair
-
-$$
-(M,g).
-$$
-
-### Metric as geometry generator
-
-Once $g$ exists, one can define:
-
-$$
-\text{length of curves},
-\quad
-\text{angle},
-\quad
-\text{area/volume},
-\quad
-\text{gradient},
-\quad
-\text{divergence},
-\quad
-\text{Laplacian},
-\quad
-\text{geodesics},
-\quad
-\text{curvature}.
-$$
-
-This is why metrics are central.
+GMT generalizes both $M$ and $\partial M$. Instead of requiring $M$ smooth,
+GMT works with currents, rectifiable sets, sets of finite perimeter, or
+varifolds, and asks: can boundary, tangent planes, orientation, area, and
+integration still be defined? `notes/08` shows that for currents, Stokes
+becomes essentially *definitional*: $\partial T(\omega) := T(d\omega)$.
 
 ---
 
-## 17. Gradients on Riemannian Manifolds
+## 17. Riemannian Metrics
 
-On $\mathbb{R}^n$, we often identify $df$ with $\nabla f$. On a manifold, the more primitive object is
-
-$$
-df\in T_p^*M.
-$$
-
-The gradient is the vector field $\nabla f$ satisfying
+A smooth manifold has calculus, but not automatically lengths or angles. A
+**Riemannian metric** is
 
 $$
-g(\nabla f,X)=df(X)
+g : p \mapsto g_p, \qquad g_p : T_pM \times T_pM \to \mathbb{R} \text{ symmetric, bilinear, positive-definite, for every } p \in M.
 $$
 
-for every vector field $X$.
+In coordinates, $g = g_{ij}\,dx^i \otimes dx^j$, $g_{ij} \in C^\infty(U)$,
+$g_{ij} = g_{ji}$. For $v = v^i\partial_i$, $w = w^j\partial_j \in T_pM$,
 
-So the metric converts the covector $df$ into a vector $\nabla f$.
+$$
+g(v,w) = g_{ij}v^iw^j \in \mathbb{R}, \qquad \lVert v\rVert_g = \sqrt{g(v,v)}, \qquad \cos\theta = \frac{g(v,w)}{\lVert v\rVert_g \lVert w\rVert_g}.
+$$
 
-Without $g$, $df$ still exists, but $\nabla f$ does not canonically exist.
+$(M,g)$ is a **Riemannian manifold**. Once $g$ exists, one can define: length
+of curves, angle, area/volume, gradient, divergence, Laplacian, geodesics,
+curvature — all derived objects, built on top of the primitive smooth
+structure. Full construction: `notes/04` §1.
+
+### 17.1 Gradients on Riemannian manifolds
+
+On $\mathbb{R}^n$ with the Euclidean metric, $df$ is casually identified with
+$\nabla f$. Intrinsically the more primitive object is $df \in T_p^*M$. The
+**gradient** is the unique vector field $\nabla f \in \Gamma(TM)$ satisfying
+
+$$
+g(\nabla f, X) = df(X) \quad \text{for every } X \in \Gamma(TM).
+$$
+
+> **Type-check.** $df$ exists as soon as $f \in C^\infty(M)$ — no metric
+> required. $\nabla f$ requires $g$: it is defined by *inverting* the map
+> $T_pM \to T_p^*M$, $v \mapsto g(v,\cdot)$, which requires $g$ to be
+> nondegenerate (it is, by positive-definiteness). Without $g$, $\nabla f$
+> does not canonically exist. This musical-isomorphism construction is
+> spelled out fully in `notes/04` §1.1.
 
 ---
 
 ## 18. Covariant Derivatives
 
-Ordinary derivatives compare vectors at nearby points. But on a curved manifold, tangent vectors at different points live in different vector spaces:
+Tangent vectors at different points of $M$ live in different vector spaces:
+$T_pM \ne T_qM$ for $p\ne q$ (they are not even canonically identifiable in
+general). A **connection** $\nabla$ gives a rule for differentiating a vector
+field $Y$ along a direction $X$:
 
 $$
-T_pM \neq T_qM.
+\nabla_X Y \in \Gamma(TM), \qquad X, Y \in \Gamma(TM).
 $$
 
-A connection gives a rule for differentiating vector fields along directions.
+In coordinates, $\nabla_{\partial_i}\partial_j = \Gamma^k_{ij}\,\partial_k$,
+where the **Christoffel symbols** $\Gamma^k_{ij} \in C^\infty(U)$ are *not*
+tensors — they depend on the coordinate chart, and their job is to correct
+ordinary partial differentiation so that differentiating a vector field makes
+intrinsic sense on a curved space.
 
-The covariant derivative is written
+**Theorem (Levi-Civita, existence and uniqueness).** Given a Riemannian
+metric $g$ on $M$, there is a unique connection $\nabla$ satisfying:
 
-$$
-\nabla_XY.
-$$
+1. metric compatibility: $X\big(g(Y,Z)\big) = g(\nabla_XY,Z) + g(Y,\nabla_XZ)$ for all $X,Y,Z\in\Gamma(TM)$;
+2. torsion-freeness: $\nabla_XY - \nabla_YX = [X,Y]$ for all $X,Y \in \Gamma(TM)$.
 
-Here $X$ is the direction of differentiation and $Y$ is the vector field being differentiated.
-
-In coordinates,
-
-$$
-\nabla_{\partial_i}\partial_j
-=
-\Gamma^k_{ij}\partial_k.
-$$
-
-The coefficients
-
-$$
-\Gamma^k_{ij}
-$$
-
-are the Christoffel symbols.
-
-They are not tensors. They depend on coordinates. Their job is to correct ordinary partial derivatives so that differentiation of vector fields makes geometric sense on curved spaces.
-
-### Levi-Civita connection
-
-Given a Riemannian metric $g$, there is a unique connection satisfying:
-
-1. metric compatibility:
-
-$$
-X(g(Y,Z))
-=
-g(\nabla_XY,Z)+g(Y,\nabla_XZ),
-$$
-
-2. torsion-free condition:
-
-$$
-\nabla_XY-\nabla_YX=[X,Y].
-$$
-
-This connection is called the Levi-Civita connection.
+*(Lee, IRM, Thm 5.10; do Carmo, RG, Ch. 2, Thm 3.6. Proved in full, via the
+Koszul formula, as the anchor proof of `notes/04` §2.)*
 
 ---
 
 ## 19. Geodesics
 
-A geodesic is a curve that locally moves as straight as the manifold allows.
-
-Let
+A **geodesic** is a curve $\gamma : I \to M$ satisfying
 
 $$
-\gamma:I\to M.
+\nabla_{\dot\gamma}\dot\gamma = 0, \qquad \dot\gamma(t) \in T_{\gamma(t)}M.
 $$
 
-Its velocity field is
+In coordinates this is the second-order nonlinear ODE
 
 $$
-\dot{\gamma}(t)\in T_{\gamma(t)}M.
+\frac{d^2x^k}{dt^2} + \Gamma^k_{ij}\frac{dx^i}{dt}\frac{dx^j}{dt} = 0.
 $$
 
-The geodesic equation is
-
-$$
-\nabla_{\dot{\gamma}}\dot{\gamma}=0.
-$$
-
-In coordinates, this becomes
-
-$$
-\frac{d^2x^k}{dt^2}
-+
-\Gamma^k_{ij}
-\frac{dx^i}{dt}
-\frac{dx^j}{dt}
-=
-0.
-$$
-
-Intuition:
-
-> A geodesic has zero intrinsic acceleration.
-
-It may appear curved from the outside, but intrinsically it is not turning.
-
-Examples:
+Intuition: a geodesic has zero *intrinsic* acceleration — it may look curved
+from an ambient embedding, but intrinsically it is not turning.
 
 | Space | Geodesics |
 |---|---|
@@ -1125,296 +713,127 @@ Examples:
 
 ## 20. Curvature
 
-Curvature measures failure of Euclidean behavior.
-
-There are multiple curvature notions.
+Curvature measures failure of Euclidean behavior; there are several distinct
+but related notions.
 
 ### 20.1 Curvature of a curve
 
-For an arc-length parametrized curve
+For a unit-speed curve $\gamma(s)$ with unit tangent $T(s) = \gamma'(s)$,
 
 $$
-\gamma(s),
+\kappa(s) = \lVert T'(s)\rVert \in [0,\infty).
 $$
-
-the unit tangent is
-
-$$
-T(s)=\gamma'(s).
-$$
-
-The curvature is
-
-$$
-\kappa(s)=\|T'(s)\|.
-$$
-
-This measures how quickly the tangent direction changes.
 
 ### 20.2 Gaussian curvature
 
-For a surface, Gaussian curvature measures intrinsic bending.
-
-Examples:
-
-| Surface | Gaussian curvature |
+| Surface | Gaussian curvature $K$ |
 |---|---:|
 | plane | $0$ |
 | cylinder | $0$ |
 | sphere of radius $R$ | $1/R^2$ |
 | saddle | negative |
 
-The cylinder having zero Gaussian curvature is important: it bends extrinsically in $\mathbb{R}^3$, but intrinsically it is locally like a plane.
+The cylinder having $K=0$ is important: it bends *extrinsically* in
+$\mathbb{R}^3$, but *intrinsically* it is locally isometric to a plane.
 
 ### 20.3 Riemann curvature tensor
 
-For a Riemannian manifold, curvature is encoded by
-
 $$
-R(X,Y)Z
-=
-\nabla_X\nabla_YZ
--
-\nabla_Y\nabla_XZ
--
-\nabla_{[X,Y]}Z.
+R(X,Y)Z = \nabla_X\nabla_YZ - \nabla_Y\nabla_XZ - \nabla_{[X,Y]}Z, \qquad X,Y,Z\in\Gamma(TM), \quad R(X,Y)Z \in \Gamma(TM).
 $$
 
-This measures the failure of covariant derivatives to commute.
-
-Conceptually:
-
-> Curvature measures path-dependence of parallel transport and noncommutativity of directional differentiation.
+Conceptually: curvature measures path-dependence of parallel transport and
+noncommutativity of directional differentiation. Full treatment, including
+sectional curvature and its relation to $K$: `notes/04` §3.
 
 ---
 
 ## 21. Laplacian and PDE Geometry
 
-In Euclidean space,
+In Euclidean space, $\Delta f = \sum_i \partial^2 f/\partial(x^i)^2$. On a
+Riemannian manifold, the **Laplace–Beltrami operator** is
 
 $$
-\Delta f
-=
-\sum_{i=1}^n \frac{\partial^2 f}{\partial (x^i)^2}.
+\Delta_g f = \operatorname{div}(\nabla f) = \frac{1}{\sqrt{|g|}}\partial_i\!\left(\sqrt{|g|}\,g^{ij}\partial_j f\right), \qquad |g| = \det(g_{ij}), \quad (g^{ij}) = (g_{ij})^{-1}.
 $$
 
-On a Riemannian manifold, the Laplace-Beltrami operator is
-
-$$
-\Delta f
-=
-\operatorname{div}(\nabla f).
-$$
-
-In coordinates,
-
-$$
-\Delta f
-=
-\frac{1}{\sqrt{|g|}}
-\partial_i
-\left(
-\sqrt{|g|}\,g^{ij}\partial_j f
-\right).
-$$
-
-Here:
-
-$$
-|g|=\det(g_{ij}),
-$$
-
-and
-
-$$
-(g^{ij})=(g_{ij})^{-1}.
-$$
-
-This is the geometric Laplacian.
-
-### Heat equation
-
-On a manifold, the heat equation becomes
-
-$$
-\frac{\partial u}{\partial t}
-=
-\Delta_g u.
-$$
-
-Here
-
-$$
-u:M\times[0,\infty)\to \mathbb{R}.
-$$
-
-The geometry of $M$ affects diffusion through $\Delta_g$.
-
-### Wave equation
-
-The wave equation becomes
-
-$$
-\frac{\partial^2 u}{\partial t^2}
-=
-\Delta_g u.
-$$
-
-This is the same conceptual operator, but the time behavior differs.
+The **heat equation** on $M$: $u : M\times[0,\infty)\to\mathbb{R}$,
+$\partial_t u = \Delta_g u$. The **wave equation**: $\partial_t^2 u =
+\Delta_g u$. Same operator, different time behavior; the geometry of $M$
+enters diffusion/propagation through $\Delta_g$.
 
 ---
 
 ## 22. De Rham Cohomology
 
-Because
+Because $d^2=0$, every exact form is closed. Define
 
 $$
-d^2=0,
+Z^k(M) = \ker\!\big(d:\Omega^k(M)\to\Omega^{k+1}(M)\big), \qquad B^k(M) = \operatorname{im}\!\big(d:\Omega^{k-1}(M)\to\Omega^k(M)\big),
 $$
 
-every exact form is closed.
-
-Define:
+so $B^k(M) \subseteq Z^k(M)$, and the **$k$-th de Rham cohomology group** is
 
 $$
-Z^k(M)=\ker(d:\Omega^k(M)\to\Omega^{k+1}(M)),
+H^k_{\mathrm{dR}}(M) = Z^k(M)/B^k(M).
 $$
 
-the space of closed $k$-forms.
-
-Define:
-
-$$
-B^k(M)=\operatorname{im}(d:\Omega^{k-1}(M)\to\Omega^k(M)),
-$$
-
-the space of exact $k$-forms.
-
-Since $d^2=0$,
+De Rham cohomology measures the obstruction to solving $\omega = d\eta$ when
+$d\omega = 0$ — it measures "holes" using differential forms.
 
 $$
-B^k(M)\subseteq Z^k(M).
+H^1_{\mathrm{dR}}(S^1) \ne 0 \qquad \text{(the circle has a 1-dimensional hole)}, \qquad H^1_{\mathrm{dR}}(\mathbb{R}^n) = 0.
 $$
 
-The $k$-th de Rham cohomology group is
-
-$$
-H^k_{\mathrm{dR}}(M)
-=
-Z^k(M)/B^k(M).
-$$
-
-Intuition:
-
-> de Rham cohomology measures the obstruction to solving $\omega=d\eta$ when $d\omega=0$.
-
-Or:
-
-> It measures holes using differential forms.
-
-Examples:
-
-$$
-H^1_{\mathrm{dR}}(S^1)\neq 0
-$$
-
-because the circle has a 1-dimensional hole.
-
-$$
-H^1_{\mathrm{dR}}(\mathbb{R}^n)=0
-$$
-
-because Euclidean space has no such hole.
-
-This is the clean version of why topology affects conservative fields.
+Both facts are proved, along with the Poincaré lemma, in `notes/05` (anchor
+proofs). This is the precise version of why topology affects the existence of
+potentials for conservative fields (§6).
 
 ---
 
-## 23. Gauss-Bonnet as Local-to-Global Geometry
+## 23. Gauss–Bonnet as Local-to-Global Geometry
 
-For a compact oriented surface $M$, Gauss-Bonnet says
-
-$$
-\int_M K\,dA
-=
-2\pi \chi(M)
-$$
-
-when $M$ has no boundary.
-
-Here:
+**Theorem (Gauss–Bonnet).** For a compact, oriented, boundaryless surface $M$,
 
 $$
-K=\text{Gaussian curvature},
+\int_M K\,dA = 2\pi\,\chi(M), \qquad K = \text{Gaussian curvature}, \quad dA = \text{area element}, \quad \chi(M) \in \mathbb{Z} \text{ Euler characteristic}.
 $$
 
-$$
-dA=\text{area element},
-$$
-
-$$
-\chi(M)=\text{Euler characteristic}.
-$$
-
-This is a prototype local-to-global theorem:
+*(do Carmo, DGCS, Ch. 4, §5.)* A prototype local-to-global theorem:
 
 | Local quantity | Global/topological quantity |
 |---|---|
 | curvature density $K\,dA$ | Euler characteristic $\chi(M)$ |
 
-This is the kind of theorem that explains why differential geometry is not just calculus. It uses calculus to detect topology.
+This is why differential geometry is not just calculus: it uses calculus to
+detect topology.
 
 ---
 
-## 24. Smoothness vs Measurability
+## 24. Smoothness vs. Measurability
 
-Smooth differential geometry assumes a lot:
+Smooth differential geometry assumes: $C^\infty$ charts, smooth transition
+maps, smooth tangent spaces, smooth vector fields, smooth forms — all
+holding at *every* point. GMT asks what happens when these assumptions are
+too strong. A set might be measurable but not smooth; rectifiable but not a
+manifold everywhere; smooth except at isolated singularities; a weak limit of
+smooth manifolds; or an area-minimizer with unavoidable singular points.
 
-$$
-C^\infty \text{ charts},
-\quad
-smooth transition maps,
-\quad
-smooth tangent spaces,
-\quad
-smooth vector fields,
-\quad
-smooth forms.
-$$
-
-GMT asks what happens when these assumptions are too strong.
-
-A set might be:
-
-- measurable but not smooth,
-- rectifiable but not a manifold everywhere,
-- smooth except for singularities,
-- fractal-like,
-- a weak limit of smooth manifolds,
-- a minimizer of area with unavoidable singular points.
-
-The core philosophical shift is:
-
-> Smooth differential geometry starts with differentiability.  
+> Smooth differential geometry starts with differentiability.
 > GMT starts with measure, approximation, and weak tangent structure.
 
-This is analogous to the way Lebesgue integration extends the reach of Riemann-style integration: the measurable framework handles objects too irregular for the classical smooth/Riemann picture.
+This is analogous to how Lebesgue integration extends the reach of Riemann
+integration: a measure-theoretic framework can handle objects too irregular
+for the classical smooth picture (`notes/06` §1).
 
 ---
 
 ## 25. Hausdorff Measure
 
-Lebesgue measure measures $n$-dimensional volume in $\mathbb{R}^n$.
-
-Hausdorff measure generalizes the idea of measuring $k$-dimensional size inside $\mathbb{R}^n$.
-
-The $k$-dimensional Hausdorff measure is denoted
-
-$$
-\mathcal{H}^k.
-$$
-
-Examples:
+Lebesgue measure $\mathcal{L}^n$ measures $n$-dimensional volume in
+$\mathbb{R}^n$. **Hausdorff measure** $\mathcal{H}^k$, $k \ge 0$ not
+necessarily an integer, generalizes "$k$-dimensional size" to arbitrary
+subsets of $\mathbb{R}^n$.
 
 | Object in $\mathbb{R}^3$ | Natural measure |
 |---|---|
@@ -1422,222 +841,146 @@ Examples:
 | surface | $\mathcal{H}^2$ |
 | solid region | $\mathcal{H}^3$ |
 
-This is the measure-theoretic replacement for length, area, and volume.
+Full construction of $\mathcal{H}^k$ from the diameter-covering outer measure,
+plus the anchor proof $\mathcal{H}^1([0,L]) = L$: `notes/06` §5.
 
 ---
 
 ## 26. Rectifiable Sets
 
-A set $E\subseteq \mathbb{R}^n$ is countably $k$-rectifiable if, up to an $\mathcal{H}^k$-null set, it can be covered by countably many Lipschitz images of subsets of $\mathbb{R}^k$.
-
-Informally:
-
-$$
-E
-\approx
-\bigcup_{j=1}^{\infty} f_j(A_j)
-$$
-
-where
+$E \subseteq \mathbb{R}^n$ is **countably $k$-rectifiable** if there exist
+countably many Lipschitz maps $f_j : A_j \to \mathbb{R}^n$, $A_j \subseteq
+\mathbb{R}^k$, such that
 
 $$
-A_j\subseteq \mathbb{R}^k,
-\qquad
-f_j:A_j\to \mathbb{R}^n
+\mathcal{H}^k\Big(E \setminus \bigcup_{j=1}^\infty f_j(A_j)\Big) = 0.
 $$
 
-are Lipschitz maps, modulo a set of $\mathcal{H}^k$-measure zero.
-
-This means $E$ may not be a smooth manifold, but it is still made out of countably many $k$-dimensional pieces in a measure-theoretic sense.
-
-### Smooth manifold vs rectifiable set
+So $E$ need not be a smooth manifold, but it is still made of countably many
+$k$-dimensional Lipschitz pieces, up to an $\mathcal{H}^k$-null remainder.
 
 | Smooth manifold | Rectifiable set |
 |---|---|
 | smooth charts | Lipschitz parametrizations |
-| tangent space everywhere | approximate tangent plane almost everywhere |
+| tangent space everywhere | approximate tangent plane $\mathcal{H}^k$-a.e. |
 | smooth area form | $\mathcal{H}^k$-measure |
-| classical boundary | measure-theoretic boundary or current boundary |
+| classical boundary | measure-theoretic/current boundary |
 | pointwise differential geometry | almost-everywhere geometry |
 
-This is one of the first serious bridges from differential geometry to GMT.
+This is one of the first serious bridges from differential geometry to GMT;
+full treatment in `notes/07`.
 
 ---
 
 ## 27. Approximate Tangent Planes
 
-A smooth $k$-manifold has a tangent space
+A smooth $k$-manifold has $T_pM$ at *every* point. A rectifiable set may have
+an **approximate tangent plane** only for $\mathcal{H}^k$-almost every point:
 
 $$
-T_pM
+T_pE \text{ exists for } \mathcal{H}^k\text{-a.e. } p \in E.
 $$
 
-at every point.
-
-A rectifiable set may only have an approximate tangent plane at $\mathcal{H}^k$-almost every point.
-
-This is written informally as
-
-$$
-T_pE
-\quad
-\text{exists for }\mathcal{H}^k\text{-a.e. }p\in E.
-$$
-
-The phrase "almost everywhere" is essential. GMT often replaces everywhere-smooth structure with almost-everywhere structure.
-
-This is the measure-theoretic version of the tangent-space idea.
+"Almost everywhere" is essential, not a hedge — GMT systematically replaces
+everywhere-smooth structure with almost-everywhere structure, and $T_pE$'s
+existence at a.e. $p$ is itself a theorem (a consequence of Rademacher's
+theorem applied to the Lipschitz parametrizations; `notes/07` §2).
 
 ---
 
 ## 28. Currents
 
-A smooth oriented $k$-dimensional submanifold $M$ defines a functional on compactly supported smooth $k$-forms:
+A smooth oriented $k$-submanifold $M \subseteq \mathbb{R}^n$ defines a
+functional on compactly supported smooth $k$-forms:
 
 $$
-T_M(\omega)
-=
-\int_M \omega.
+T_M(\omega) = \int_M \omega, \qquad T_M : \Omega_c^k(\mathbb{R}^n) \to \mathbb{R}.
 $$
 
-A $k$-current generalizes this idea.
-
-A current is not primarily a set. It is an integration functional.
-
-Symbolically,
+A **$k$-current** generalizes this: it is *primarily* a continuous linear
+functional, not a point set,
 
 $$
-T:\Omega_c^k(\mathbb{R}^n)\to \mathbb{R}.
+T : \Omega_c^k(\mathbb{R}^n) \to \mathbb{R}, \qquad T \in D_k(\mathbb{R}^n).
 $$
 
-The boundary of a current is defined by duality with exterior derivative:
+The **boundary of a current** is defined by duality with the exterior
+derivative:
 
 $$
-\partial T(\omega)
-=
-T(d\omega).
+\partial T(\omega) := T(d\omega), \qquad \partial T \in D_{k-1}(\mathbb{R}^n).
 $$
 
-This is extremely important.
-
-It means generalized Stokes becomes almost definitional:
-
-$$
-\partial T(\omega)=T(d\omega).
-$$
-
-For a smooth manifold current $T_M$,
-
-$$
-\partial T_M = T_{\partial M}.
-$$
-
-So currents are a natural GMT object because they retain:
-
-$$
-\text{orientation}
-+
-\text{multiplicity}
-+
-\text{boundary}
-+
-\text{integration}
-$$
-
-without requiring the object to be a smooth manifold.
+This makes generalized Stokes nearly definitional, and for a smooth manifold
+current, $\partial T_M = T_{\partial M}$ — proved as the anchor result of
+`notes/08`. Currents retain orientation, multiplicity, boundary, and
+integration, without requiring the underlying object to be a smooth manifold.
 
 ---
 
 ## 29. Varifolds
 
-Varifolds are another weak generalization of surfaces.
-
-Where currents care about orientation, varifolds are more measure-like and do not require orientation.
-
-A $k$-varifold in $\mathbb{R}^n$ can be thought of as a measure on pairs
+Where currents carry orientation, **varifolds** are more measure-like and
+require none. A $k$-varifold in $\mathbb{R}^n$ is a Radon measure $V$ on
 
 $$
-(x,P),
+\mathbb{R}^n \times G(n,k), \qquad V \in V_k(\mathbb{R}^n),
 $$
 
-where
-
-$$
-x\in \mathbb{R}^n
-$$
-
-and
-
-$$
-P
-$$
-
-is a $k$-dimensional plane through the origin, representing a tangent plane direction.
-
-Informally:
-
-$$
-\text{varifold} = \text{distribution of mass + tangent planes}.
-$$
-
-Varifolds are useful for studying weak limits of surfaces, especially in minimal surface theory.
+where $G(n,k)$ is the Grassmannian of $k$-planes through the origin — i.e. a
+measure on pairs $(x,P)$, $x \in \mathbb{R}^n$ a position and $P \in G(n,k)$ a
+candidate tangent-plane direction at $x$. Informally: varifold = distribution
+of mass + tangent-plane data, without a sign/orientation attached. Useful for
+weak limits of surfaces, especially in minimal surface theory. Full
+construction and first variation: `notes/09`.
 
 ---
 
 ## 30. Sets of Finite Perimeter
 
-A set
-
-$$
-E\subseteq \mathbb{R}^n
-$$
-
-has finite perimeter if its indicator function
-
-$$
-\mathbf{1}_E
-$$
-
-has distributional derivative given by a finite Radon measure.
-
-This moves boundary theory into weak derivatives.
-
-The boundary is no longer just the topological boundary. GMT distinguishes:
+$E \subseteq \mathbb{R}^n$ has **finite perimeter** if the distributional
+derivative of $\mathbf{1}_E$ is a finite $\mathbb{R}^n$-valued Radon measure.
+This moves boundary theory into weak derivatives. GMT distinguishes several
+notions of boundary for the same set:
 
 | Boundary type | Meaning |
 |---|---|
-| topological boundary | closure minus interior |
-| measure-theoretic boundary | density neither 0 nor 1 |
-| reduced boundary | points with measure-theoretic normal |
-| current boundary | boundary defined by action on forms |
+| topological boundary $\partial E$ | $\overline{E}\setminus\operatorname{int}(E)$ |
+| measure-theoretic boundary | points of density neither $0$ nor $1$ |
+| reduced boundary $\partial^*E$ | points with a measure-theoretic normal |
+| current boundary | boundary defined by action on forms, §28 |
 
-This matters because the topological boundary can be too wild, while the measure-theoretic boundary captures the geometry relevant to perimeter and variational problems.
+The topological boundary can be pathologically large even when $E$ is
+well-behaved measure-theoretically; the reduced boundary $\partial^*E$ is the
+one relevant to perimeter and variational problems. Full treatment, including
+the generalized Gauss–Green theorem: `notes/09` §2.
 
 ---
 
 ## 31. Area and Coarea Formulae
 
-The classical change-of-variables theorem uses the determinant of the Jacobian.
-
-GMT generalizes this through area and coarea formulae.
-
-For a Lipschitz map
+The classical change-of-variables theorem uses $\det DF$. GMT generalizes this
+via the **area formula** and **coarea formula** for Lipschitz maps
 
 $$
-f:\mathbb{R}^m\to\mathbb{R}^n,
+f : \mathbb{R}^m \to \mathbb{R}^n,
 $$
 
-one can integrate over images and level sets using generalized Jacobians.
-
-The philosophical point:
-
-> Jacobians survive beyond smooth maps, but they become almost-everywhere and measure-theoretic objects.
-
-This is crucial for probability, statistics, and machine learning because many useful maps are not smooth everywhere but are still Lipschitz, measurable, or differentiable almost everywhere.
+integrating over images and level sets using a generalized Jacobian that
+exists $\mathcal{L}^m$-a.e. by Rademacher's theorem. The philosophical point:
+Jacobians survive beyond smooth maps, but become almost-everywhere,
+measure-theoretic objects. This is crucial well beyond geometry — many useful
+maps in probability, statistics, and machine learning are Lipschitz or a.e.
+differentiable but not smooth everywhere. Precise statements and the
+linear-map case worked in full: `notes/07` §3.
 
 ---
 
 ## 32. The Smooth-to-GMT Dictionary
+
+See `notes/NOTATION.md` §3 for the fully typed version of this table (each row
+annotated with the type on both the smooth and GMT side, and what is lost in
+the transition). Compressed version:
 
 | Smooth differential geometry | GMT / weak geometry |
 |---|---|
@@ -1648,7 +991,7 @@ This is crucial for probability, statistics, and machine learning because many u
 | area form $dA$ | Hausdorff measure $\mathcal{H}^k$ |
 | vector field | test field / weak vector field |
 | differential form | test form |
-| Stokes theorem | boundary of current defined by $T(d\omega)$ |
+| Stokes theorem | boundary of current, $\partial T(\omega) = T(d\omega)$ |
 | curvature tensor | weak curvature / first variation |
 | minimal surface | area-minimizing current / stationary varifold |
 
@@ -1656,305 +999,132 @@ This is crucial for probability, statistics, and machine learning because many u
 
 ## 33. What to Learn Next
 
-### Phase 1: Smooth foundations
+### Phase 1 — Smooth foundations
+Smooth manifolds; tangent/cotangent spaces; vector fields; differential
+forms; exterior derivative; integration on manifolds; generalized Stokes.
+Goal: $\int_{\partial M}\omega = \int_M d\omega$ should feel like the master
+theorem behind vector calculus. (`notes/02`, `notes/03`)
 
-Focus on:
+### Phase 2 — Riemannian geometry
+Metrics; gradient/divergence/Laplacian; covariant derivatives; geodesics;
+curvature; volume forms; Gauss–Bonnet. Goal: understand how geometry is
+encoded by $g$ and its derivative structure. (`notes/04`)
 
-1. smooth manifolds,
-2. tangent and cotangent spaces,
-3. vector fields,
-4. differential forms,
-5. exterior derivative,
-6. integration on manifolds,
-7. generalized Stokes.
+### Phase 3 — Topology interface
+Fundamental group; homology; cohomology; de Rham cohomology; degree theory;
+compactness and orientability. Goal: understand why calculus detects holes
+and global structure. (`notes/05`)
 
-Goal:
+### Phase 4 — Measure-theoretic geometry
+Measure theory; Hausdorff measure; Lipschitz maps; rectifiability; area/coarea
+formulae; BV functions; finite-perimeter sets. Goal: replace everywhere-smooth
+structure with almost-everywhere structure. (`notes/06`, `notes/07`)
 
-$$
-\int_{\partial M}\omega=\int_M d\omega
-$$
-
-should feel like the master theorem behind vector calculus.
-
-### Phase 2: Riemannian geometry
-
-Focus on:
-
-1. metrics,
-2. gradients/divergence/Laplacian,
-3. covariant derivatives,
-4. geodesics,
-5. curvature,
-6. volume forms,
-7. Gauss-Bonnet.
-
-Goal:
-
-Understand how geometry is encoded by $g$ and its derivative structure.
-
-### Phase 3: Topology interface
-
-Focus on:
-
-1. fundamental group,
-2. homology,
-3. cohomology,
-4. de Rham cohomology,
-5. degree theory,
-6. compactness and orientability.
-
-Goal:
-
-Understand why calculus detects holes and global structure.
-
-### Phase 4: Measure-theoretic geometry
-
-Focus on:
-
-1. measure theory,
-2. Hausdorff measure,
-3. Lipschitz maps,
-4. rectifiability,
-5. area/coarea formulae,
-6. BV functions,
-7. finite-perimeter sets.
-
-Goal:
-
-Replace everywhere-smooth structure with almost-everywhere structure.
-
-### Phase 5: GMT objects
-
-Focus on:
-
-1. currents,
-2. integral currents,
-3. varifolds,
-4. first variation,
-5. monotonicity formulae,
-6. minimal surfaces,
-7. regularity and singularities.
-
-Goal:
-
-Understand geometric objects as weak limits, measures, and integration functionals.
+### Phase 5 — GMT objects
+Currents; integral currents; varifolds; first variation; monotonicity
+formulae; minimal surfaces; regularity and singularities. Goal: understand
+geometric objects as weak limits, measures, and integration functionals.
+(`notes/08`, `notes/09`)
 
 ---
 
 ## 34. Core Intuitions to Keep
 
-### 34.1 A manifold is a space where calculus works locally
+**34.1** A manifold is a space where calculus works locally: near each point,
+the space can be coordinatized by $\mathbb{R}^n$.
 
-The phrase "locally Euclidean" means:
+**34.2** Tangent spaces are local linearizations: $T_pM$ is the best linear
+approximation to $M$ at $p$.
 
-$$
-\text{near each point, the space can be coordinatized by } \mathbb{R}^n.
-$$
+**34.3** Forms are the natural objects of integration: a $k$-form integrates
+over a $k$-dimensional oriented object, replacing ad hoc vector-calculus
+formulas with one degree-matching rule.
 
-### 34.2 Tangent spaces are local linearizations of the space
+**34.4** Stokes is the master theorem: $\int_M d\omega = \int_{\partial M}
+\omega$ unifies FTC, Green, classical Stokes, and the divergence theorem.
 
-At each point $p$,
+**34.5** The metric is extra structure: a smooth manifold does not
+automatically know length or angle; $g$ adds those.
 
-$$
-T_pM
-$$
+**34.6** Curvature is noncommutativity of local linear comparison: it appears
+when moving vectors around depends on the path taken.
 
-is the best linear approximation to $M$ at $p$.
-
-### 34.3 Forms are the natural objects of integration
-
-A $k$-form integrates over a $k$-dimensional oriented object.
-
-This replaces ad hoc vector-calculus formulas with one degree-matching rule.
-
-### 34.4 Stokes is the master theorem
-
-$$
-\int_M d\omega
-=
-\int_{\partial M}\omega.
-$$
-
-It unifies FTC, Green, classical Stokes, and divergence theorem.
-
-### 34.5 The metric is extra structure
-
-A smooth manifold does not automatically know length or angle.
-
-A metric adds those.
-
-### 34.6 Curvature is noncommutativity of local linear comparison
-
-Curvature appears when moving vectors around depends on the path.
-
-### 34.7 GMT keeps geometry after smoothness breaks
-
-GMT asks for the weakest structure needed to preserve length, area, boundary, tangent planes, and variational calculus.
+**34.7** GMT keeps geometry after smoothness breaks: it asks for the weakest
+structure needed to preserve length, area, boundary, tangent planes, and
+variational calculus.
 
 ---
 
-## 35. Recommended Repo Structure
-
-A clean repo structure could be:
+## 35. Repository Structure
 
 ```text
 GMT-Topology/
 ├── README.md
-├── notes/
-│   ├── 00_differential_geometry_foundations.md
-│   ├── 01_manifolds_and_tangent_spaces.md
-│   ├── 02_differential_forms_and_stokes.md
-│   ├── 03_riemannian_metrics_and_curvature.md
-│   ├── 04_topology_and_de_rham_cohomology.md
-│   ├── 05_measure_theory_bridge.md
-│   ├── 06_rectifiability.md
-│   ├── 07_currents.md
-│   └── 08_varifolds.md
-├── examples/
-│   ├── curves_surfaces_forms.md
-│   ├── stokes_special_cases.md
-│   └── smooth_vs_rectifiable_examples.md
-└── references/
-    └── bibliography.md
-```
-
-This current file can be placed as:
-
-```text
-notes/00_differential_geometry_foundations.md
+├── 00_differential_geometry_foundations_for_GMT_Topology.md
+├── 01_prerequisite_systematic_review_for_GMT_Topology.md
+└── notes/
+    ├── NOTATION.md
+    ├── 02_manifolds_and_tangent_spaces.md
+    ├── 03_differential_forms_and_stokes.md
+    ├── 04_riemannian_metrics_and_curvature.md
+    ├── 05_topology_and_de_rham_cohomology.md
+    ├── 06_measure_theory_bridge.md
+    ├── 07_rectifiability_and_hausdorff_measure.md
+    ├── 08_currents.md
+    └── 09_varifolds_and_finite_perimeter.md
 ```
 
 ---
 
 ## 36. Minimal Problem Set for Self-Calibration
 
-These are not computational busywork. They are concept checks.
+These are concept checks, not computational busywork.
 
-### Problem 1
+**Problem 1.** $\gamma(t) = (\cos t, \sin t)$, $t \in [0,2\pi]$. Compute
+$\gamma'(t)$, $\lVert\gamma'(t)\rVert$, $L(\gamma)$. Interpret as integrating a
+1-dimensional measure over a curved object.
 
-Let
+**Problem 2.** $F(x,y) = (-y,x)$. Compute $\int_{S^1}F\cdot d\mathbf{r}$. Write
+the corresponding 1-form $\omega = -y\,dx + x\,dy$, compute $d\omega$, and
+interpret via Green's theorem.
 
-$$
-\gamma(t)=(\cos t,\sin t),
-\qquad
-t\in[0,2\pi].
-$$
+**Problem 3.** $f(x,y,z) = x^2+y^2+z^2$. Compute $df$, then use the Euclidean
+metric to identify $df$ with $\nabla f$. Explain why $df$ is more primitive
+than $\nabla f$ (§17.1).
 
-Compute:
+**Problem 4.** Let $S^2 \subseteq \mathbb{R}^3$. Explain why $S^2$ is a
+2-dimensional manifold despite living in 3-dimensional space. What is
+$T_pS^2$ for $p \in S^2$?
 
-$$
-\gamma'(t),
-\qquad
-\|\gamma'(t)\|,
-\qquad
-L(\gamma).
-$$
+**Problem 5.** State generalized Stokes and identify $M$, $\partial M$,
+$\omega$ for: FTC, Green's theorem, classical Stokes, the divergence theorem.
 
-Interpret this as integrating a 1-dimensional measure over a curved object.
-
-### Problem 2
-
-Let
-
-$$
-F(x,y)=(-y,x).
-$$
-
-Compute
-
-$$
-\int_{S^1}F\cdot d\mathbf{r}.
-$$
-
-Then write the corresponding 1-form
-
-$$
-\omega=-y\,dx+x\,dy.
-$$
-
-Compute $d\omega$. Interpret using Green's theorem.
-
-### Problem 3
-
-Let
-
-$$
-f(x,y,z)=x^2+y^2+z^2.
-$$
-
-Compute
-
-$$
-df.
-$$
-
-Then use the Euclidean metric to identify $df$ with $\nabla f$.
-
-Explain why $df$ is more primitive than $\nabla f$.
-
-### Problem 4
-
-Let $S^2\subseteq\mathbb{R}^3$. Explain why $S^2$ is a 2-dimensional manifold, even though it lives in 3-dimensional space.
-
-What is
-
-$$
-T_pS^2
-$$
-
-for a point $p\in S^2$?
-
-### Problem 5
-
-State generalized Stokes:
-
-$$
-\int_M d\omega=\int_{\partial M}\omega.
-$$
-
-Then identify $M$, $\partial M$, and $\omega$ for:
-
-1. FTC,
-2. Green's theorem,
-3. classical Stokes theorem,
-4. divergence theorem.
-
-### Problem 6
-
-Give an example of a space that is not smooth everywhere but should still have a reasonable notion of length or area.
-
-Explain why this motivates Hausdorff measure or rectifiability.
+**Problem 6.** Give an example of a space that is not smooth everywhere but
+should still have a reasonable notion of length or area. Explain why this
+motivates Hausdorff measure or rectifiability.
 
 ---
 
-## 37. Reference Map
+## 37. References Used
 
-### Smooth manifolds and forms
+- **Spivak, CoM** — Ch. 4 (fundamental theorem for line integrals), Ch. 5
+  (Stokes' theorem).
+- **Lee, ISM** — Ch. 3 (tangent vectors), Ch. 14–16 (forms, orientation,
+  Stokes; Thm 16.11 stated in §16 above).
+- **Lee, IRM** — Ch. 5 (Levi-Civita connection, Thm 5.10, stated in §18 above).
+- **do Carmo, RG** — Ch. 2 (connections), Ch. 4 (curvature).
+- **do Carmo, DGCS** — Ch. 3–4 (Gaussian curvature, Gauss–Bonnet).
+- **Federer, GMT**; **Simon, LGMT**; **Evans–Gariepy, MTFP**; **Maggi,
+  SFP&GVP** — for the GMT-bridge sections (§25–31); precise citations for each
+  result are given in `notes/06`–`09`, where the results are proved.
 
-- John M. Lee, *Introduction to Smooth Manifolds*, 2nd ed.
-- Loring W. Tu, *An Introduction to Manifolds*.
-- MIT OpenCourseWare, *Geometry of Manifolds*.
-
-### Curves, surfaces, and classical differential geometry
-
-- Theodore Shifrin, *Differential Geometry: A First Course in Curves and Surfaces*.
-- Manfredo do Carmo, *Differential Geometry of Curves and Surfaces*.
-- Barrett O'Neill, *Elementary Differential Geometry*.
-
-### Riemannian geometry
-
-- John M. Lee, *Introduction to Riemannian Manifolds*.
-- do Carmo, *Riemannian Geometry*.
-
-### GMT bridge
-
-- Leon Simon, *Introduction to Geometric Measure Theory* / *Lectures on Geometric Measure Theory*.
-- Lawrence C. Evans and Ronald F. Gariepy, *Measure Theory and Fine Properties of Functions*.
-- Francesco Maggi, *Sets of Finite Perimeter and Geometric Variational Problems*.
-- Herbert Federer, *Geometric Measure Theory*.
+Full bibliographic data for all short keys: `notes/NOTATION.md` §4.
 
 ---
 
 ## 38. One-Sentence Summary
 
-Differential geometry builds calculus on smooth spaces using tangent spaces, forms, metrics, and curvature; GMT keeps the geometric-integration machinery while weakening smoothness into measure, rectifiability, currents, varifolds, and almost-everywhere tangent structure.
+Differential geometry builds calculus on smooth spaces using tangent spaces,
+forms, metrics, and curvature; GMT keeps the geometric-integration machinery
+while weakening smoothness into measure, rectifiability, currents, varifolds,
+and almost-everywhere tangent structure.
