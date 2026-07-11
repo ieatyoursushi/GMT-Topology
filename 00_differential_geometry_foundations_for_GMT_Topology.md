@@ -1004,28 +1004,32 @@ the transition). Compressed version:
 
 ## 33. What to Learn Next
 
-### Phase 1 — Smooth foundations
+(These are *learning stages* within the material, not the repo's document
+phases — "Phase 1/2/3" elsewhere refers to the grouping `00`+`01` /
+`notes/` / `ml-geometry/` as in the README.)
+
+### Stage 1 — Smooth foundations
 Smooth manifolds; tangent/cotangent spaces; vector fields; differential
 forms; exterior derivative; integration on manifolds; generalized Stokes.
 Goal: $\int_{\partial M}\omega = \int_M d\omega$ should feel like the master
 theorem behind vector calculus. (`notes/02`, `notes/03`)
 
-### Phase 2 — Riemannian geometry
+### Stage 2 — Riemannian geometry
 Metrics; gradient/divergence/Laplacian; covariant derivatives; geodesics;
 curvature; volume forms; Gauss–Bonnet. Goal: understand how geometry is
 encoded by $g$ and its derivative structure. (`notes/04`)
 
-### Phase 3 — Topology interface
+### Stage 3 — Topology interface
 Fundamental group; homology; cohomology; de Rham cohomology; degree theory;
 compactness and orientability. Goal: understand why calculus detects holes
 and global structure. (`notes/05`)
 
-### Phase 4 — Measure-theoretic geometry
+### Stage 4 — Measure-theoretic geometry
 Measure theory; Hausdorff measure; Lipschitz maps; rectifiability; area/coarea
 formulae; BV functions; finite-perimeter sets. Goal: replace everywhere-smooth
 structure with almost-everywhere structure. (`notes/06`, `notes/07`)
 
-### Phase 5 — GMT objects
+### Stage 5 — GMT objects
 Currents; integral currents; varifolds; first variation; monotonicity
 formulae; minimal surfaces; regularity and singularities. Goal: understand
 geometric objects as weak limits, measures, and integration functionals.
@@ -1067,16 +1071,26 @@ GMT-Topology/
 ├── README.md
 ├── 00_differential_geometry_foundations_for_GMT_Topology.md
 ├── 01_prerequisite_systematic_review_for_GMT_Topology.md
-└── notes/
-    ├── NOTATION.md
-    ├── 02_manifolds_and_tangent_spaces.md
-    ├── 03_differential_forms_and_stokes.md
-    ├── 04_riemannian_metrics_and_curvature.md
-    ├── 05_topology_and_de_rham_cohomology.md
-    ├── 06_measure_theory_bridge.md
-    ├── 07_rectifiability_and_hausdorff_measure.md
-    ├── 08_currents.md
-    └── 09_varifolds_and_finite_perimeter.md
+├── notes/                                        ← Phase 2 deep dives
+│   ├── NOTATION.md
+│   ├── 02_manifolds_and_tangent_spaces.md
+│   ├── 03_differential_forms_and_stokes.md
+│   ├── 04_riemannian_metrics_and_curvature.md
+│   ├── 05_topology_and_de_rham_cohomology.md
+│   ├── 06_measure_theory_bridge.md
+│   ├── 07_rectifiability_and_hausdorff_measure.md
+│   ├── 08_currents.md
+│   └── 09_varifolds_and_finite_perimeter.md
+└── ml-geometry/                                  ← Phase 3: geometry–ML intersection
+    ├── NOTATION_ML.md
+    ├── 00_geometric_machine_learning_hub.md
+    ├── 10_information_geometry.md
+    ├── 11_optimal_transport.md
+    ├── 12_geometric_deep_learning.md
+    ├── 13_riemannian_optimization.md
+    ├── 14_gmt_for_shapes.md
+    ├── 15_topological_data_analysis.md
+    └── 16_capstone_directindexing_gmt.md
 ```
 
 ---

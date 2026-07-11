@@ -339,16 +339,20 @@ GMT-topology/
 ├── README.md
 ├── 00_differential_geometry_foundations_for_GMT_Topology.md   ← survey/hub: smooth DG through the GMT bridge
 ├── 01_prerequisite_systematic_review_for_GMT_Topology.md       ← survey/index: prerequisite map + proof-anchor menu
-└── notes/
-    ├── NOTATION.md                              ← this file
-    ├── 02_manifolds_and_tangent_spaces.md        ← deep dive
-    ├── 03_differential_forms_and_stokes.md       ← deep dive
-    ├── 04_riemannian_metrics_and_curvature.md    ← deep dive
-    ├── 05_topology_and_de_rham_cohomology.md      ← deep dive
-    ├── 06_measure_theory_bridge.md                ← deep dive
-    ├── 07_rectifiability_and_hausdorff_measure.md ← deep dive
-    ├── 08_currents.md                             ← deep dive
-    └── 09_varifolds_and_finite_perimeter.md        ← deep dive
+├── notes/
+│   ├── NOTATION.md                              ← this file
+│   ├── 02_manifolds_and_tangent_spaces.md        ← deep dive
+│   ├── 03_differential_forms_and_stokes.md       ← deep dive
+│   ├── 04_riemannian_metrics_and_curvature.md    ← deep dive
+│   ├── 05_topology_and_de_rham_cohomology.md      ← deep dive
+│   ├── 06_measure_theory_bridge.md                ← deep dive
+│   ├── 07_rectifiability_and_hausdorff_measure.md ← deep dive
+│   ├── 08_currents.md                             ← deep dive
+│   └── 09_varifolds_and_finite_perimeter.md        ← deep dive
+└── ml-geometry/                                    ← Phase 3: geometry–ML intersection
+    ├── NOTATION_ML.md                             ← extends this file for Phase 3
+    ├── 00_geometric_machine_learning_hub.md        ← Phase 3 survey/hub
+    └── 10–16 …                                     ← Phase 3 deep dives + capstone
 ```
 
 `00` and `01` are **survey-altitude**: they cover the whole arc quickly, with
@@ -359,4 +363,6 @@ chain, proves at least one theorem from scratch, and links back up to `00`/`01`
 and sideways to its prerequisites.
 
 Recommended reading order: `00` $\to$ `01` $\to$ `notes/02` $\to \cdots \to$
-`notes/09`, keeping this file open as a reference throughout.
+`notes/09`, keeping this file open as a reference throughout; then continue
+into Phase 3 via `ml-geometry/NOTATION_ML.md` (which extends this file) and
+the Phase-3 hub, `ml-geometry/00_geometric_machine_learning_hub.md`.

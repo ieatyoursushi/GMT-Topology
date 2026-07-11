@@ -951,7 +951,9 @@ conceptually; what currents/varifolds are trying to generalize.
 
 ## 18. Minimal Study Sequence for Intellectual Practicality
 
-### Phase 1 — Smooth geometry literacy
+(Learning stages, not the repo's document phases — see the note in `00` §33.)
+
+### Stage 1 — Smooth geometry literacy
 
 1. Linear algebra: dual spaces, determinants, symmetric operators, exterior
    algebra basics.
@@ -962,7 +964,7 @@ conceptually; what currents/varifolds are trying to generalize.
 4. Differential geometry foundations: smooth manifolds, tangent/cotangent
    spaces, forms, Stokes, metrics, covariant derivatives, curvature.
 
-### Phase 2 — Measurable geometry upgrade
+### Stage 2 — Measurable geometry upgrade
 
 1. Measure theory: $\sigma$-algebras, Lebesgue integral, convergence
    theorems, $L^p$, Radon measures, Hausdorff measure.
@@ -971,7 +973,7 @@ conceptually; what currents/varifolds are trying to generalize.
 3. GMT intro: rectifiable sets, area/coarea formula, currents, varifolds,
    finite perimeter, compactness/lower semicontinuity.
 
-### Phase 3 — Variational geometry
+### Stage 3 — Variational geometry
 
 Minimal surfaces; first variation; mean curvature; weak solutions;
 regularity/singularity split; Plateau problem; geometric flows if desired.
