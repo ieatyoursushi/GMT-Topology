@@ -365,8 +365,13 @@ description of actual training.** The classical Dirichlet principle (fixed
 boundary trace, minimize Dirichlet energy over $H^1(\Omega)$ $\Rightarrow$
 unique harmonic minimizer) is standard potential theory and is correctly
 stated as an idealization — reusing `01` §9.6's weak-derivative/Sobolev-space
-vocabulary, the minimizer lives in $H^1(\Omega)$ with prescribed trace on
-$\partial\Omega$. But real Tikhonov/RKHS-regularized ERM (as DIML actually
+vocabulary, the minimizer lives in the Sobolev space
+
+$$
+H^1(\Omega) := \{u\in L^2(\Omega) : \text{the weak gradient } Du \ (\text{`01' §9.6}) \text{ exists and lies in } L^2(\Omega;\mathbb{R}^d)\}
+$$
+
+with prescribed trace on $\partial\Omega$. But real Tikhonov/RKHS-regularized ERM (as DIML actually
 implements it, per its own `MLNetPipeline.md`) optimizes a **data-fit term
 plus a penalty over a specific parametric hypothesis class**
 ($\mathcal{H}_\Omega$, `data_memo_theory.md` §9.1), not literally this

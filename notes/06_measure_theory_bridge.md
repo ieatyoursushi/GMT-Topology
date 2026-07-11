@@ -294,8 +294,24 @@ is finite on compact sets, outer regular ($\mu(A) = \inf\{\mu(U):U\supseteq
 A \text{ open}\}$), and inner regular on open sets. Both $\mathcal{L}^n$ and
 $\mathcal{H}^k$ restricted to sets where it is $\sigma$-finite are Radon.
 Radon measures are the natural measure objects for weak-$*$ convergence
-(`01` §9.4) and are exactly the objects a current's mass measure (`notes/08`)
+and are exactly the objects a current's mass measure (`notes/08`)
 or a varifold (`notes/09`) is built from.
+
+> **Type-check — weak vs. weak-$*$ convergence.** `01` §9.4 defines *weak*
+> convergence in a normed space $X$: $x_n \rightharpoonup x$ iff
+> $\ell(x_n)\to\ell(x)$ for every $\ell\in X^*$. *Weak-$*$* convergence lives
+> one dual up: for elements $\mu_n$ of a dual space $X^*$ — and Radon
+> measures *are* a dual space, $\mathcal{M}(\mathbb{R}^n) \cong
+> C_c(\mathbb{R}^n)^*$ by the Riesz representation theorem (black-boxed per
+> `01` §17) — one tests against the *predual*, not the double dual:
+> $\mu_n \overset{*}{\rightharpoonup} \mu$ iff $\int f\,d\mu_n \to \int
+> f\,d\mu$ for every $f\in C_c(\mathbb{R}^n)$. Every convergence of measures,
+> currents, or varifolds in this repository (`notes/08`–`09`, and the
+> coupling compactness of `ml-geometry/11` §1) is weak-$*$: pairing against
+> test functions/forms/fields. The payoff is compactness (Banach–Alaoglu,
+> black-boxed): a mass-bounded sequence in a dual space has a weak-$*$
+> convergent subsequence — the engine behind the Federer–Fleming compactness
+> theorem cited in `notes/08` §3.
 
 ---
 

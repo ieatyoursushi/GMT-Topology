@@ -80,6 +80,42 @@ boundary (in the sense of `notes/05` §1's $Z^k/B^k$ quotient) as the
 filtration grows — persistence tracks *when* this happens, across the whole
 filtration, rather than at a single fixed scale.
 
+### 1.1 Homology at recognition depth — the prerequisite `notes/05` did not cover, supplied
+
+`notes/05` built *de Rham cohomology* (differential forms, $d$). The $H_k$
+used in this document is **simplicial homology with field coefficients** — a
+parallel theory this repo has not otherwise needed, so its definitions are
+recorded here once, at recognition depth (`notes/NOTATION.md` §1.1):
+
+$$
+C_k(K;\mathbb{F}) := \text{the } \mathbb{F}\text{-vector space with basis the $k$-simplices of a simplicial complex } K,
+$$
+
+$$
+\partial_k : C_k(K;\mathbb{F}) \to C_{k-1}(K;\mathbb{F}), \qquad \partial_k[v_0,\dots,v_k] := \sum_{i=0}^k (-1)^i\,[v_0,\dots,\widehat{v_i},\dots,v_k] \quad (\text{hat = omit}),
+$$
+
+the alternating sum of a simplex's faces. Direct computation gives
+$\partial_{k-1}\circ\partial_k = 0$ (each $(k{-}2)$-face appears twice, with
+opposite signs — the same symmetric-cancels-against-antisymmetric mechanism
+as $d^2=0$, `notes/03` Theorem 2.4, and $\partial\partial=0$ for currents,
+`notes/08` Theorem 2.2). So $\operatorname{im}\partial_{k+1}\subseteq
+\ker\partial_k$ and
+
+$$
+H_k(K;\mathbb{F}) := \ker\partial_k / \operatorname{im}\partial_{k+1}
+$$
+
+— cycles modulo boundaries (`01` §12.2), the same quotient pattern as
+$H^k_{\mathrm{dR}} = Z^k/B^k$ (`notes/05` §1) with all arrows reversed
+(chains map *down* in degree; forms map *up*). Two facts are used below,
+both cited rather than proved: (a) a continuous map — in particular an
+inclusion of spaces — induces a linear map on $H_k$, functorially
+(Edelsbrunner–Harer, Ch. IV; this is the property Theorem 3.1's proof
+leans on); (b) de Rham's theorem (black-boxed per `01` §17) identifies
+$H^k_{\mathrm{dR}}(M)$ with the dual of degree-$k$ homology for smooth $M$ —
+the precise sense in which the two theories "measure the same holes."
+
 ---
 
 ## 2. Interleavings of Persistence Modules
