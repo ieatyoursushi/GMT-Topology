@@ -113,17 +113,27 @@ the total variation measure of $D\mathbf{1}_E$.
 boundary**, if the limit
 
 $$
-\nu_E(x) := \lim_{r\to 0^+} \frac{D\mathbf{1}_E(B_r(x))}{|D\mathbf{1}_E|(B_r(x))}
+\nu_E(x) := -\lim_{r\to 0^+} \frac{D\mathbf{1}_E(B_r(x))}{|D\mathbf{1}_E|(B_r(x))}
 $$
 
 exists and $|\nu_E(x)|=1$. $\nu_E(x)$ is the **measure-theoretic outer
 normal** at $x$.
 
+> **On the minus sign.** It is a convention choice, made here so that
+> $\nu_E$ is genuinely the *outward* normal: for $u=\mathbf{1}_E$ the vector
+> measure $D\mathbf{1}_E$ points *into* $E$ across $\partial E$ ($\mathbf{1}_E$
+> increases moving inward — Theorem 3.1 Step 1 below computes
+> $D\mathbf{1}_E = -\nu\,\mathcal{H}^{n-1}\llcorner\partial E$ explicitly for
+> smooth $E$, $\nu$ the classical outward normal). Evans–Gariepy build in the
+> same sign by defining $\nu_E$ through the Gauss–Green pairing directly
+> (MTFP, §5.1); sources that omit the minus sign here obtain the *inward*
+> normal and compensate elsewhere.
+
 **Theorem 2.3 (De Giorgi structure theorem, stated).** If $E$ has finite
 perimeter in $\Omega$, then $\partial^*E$ is $(n{-}1)$-rectifiable, and
 
 $$
-D\mathbf{1}_E = \nu_E\, \mathcal{H}^{n-1}\llcorner\partial^*E \qquad \text{(as measures)},
+D\mathbf{1}_E = -\nu_E\, \mathcal{H}^{n-1}\llcorner\partial^*E \qquad \text{(as measures; the sign per Definition 2.2's convention)},
 $$
 
 so $P(E;\Omega) = \mathcal{H}^{n-1}(\partial^*E\cap\Omega)$.
@@ -196,10 +206,8 @@ $$
 $$
 
 as $\mathbb{R}^n$-valued measures (matching test-vector-field pairings for
-all $X$ determines the measure). [Sign convention note: some sources define
-$D\mathbf{1}_E$ so that the outward normal appears with a $+$ sign directly;
-the essential content — that $D\mathbf{1}_E$ is $\mathcal{H}^{n-1}\llcorner
-\partial E$ weighted by the unit normal — is convention-independent.] In
+all $X$ determines the measure) — the explicit instance of "$D\mathbf{1}_E$
+points inward" anticipated in Definition 2.2's convention note. In
 particular $D\mathbf{1}_E$ is a finite Radon measure (since $\partial E$ is
 compact, $\mathcal{H}^{n-1}(\partial E)<\infty$ by compactness + $C^1$-ness),
 so $\mathbf{1}_E \in BV(\mathbb{R}^n)$.
@@ -214,8 +222,9 @@ $$
 
 using continuity of $\nu$ (a $C^1$, hence continuous, function on the compact
 hypersurface $\partial E$) to pass to the limit in the average. This limit
-exists and has unit length, so $x\in\partial^*E$ with $\nu_E(x) = -\nu(x)$
-(up to the sign convention flagged in Step 1) for every $x\in\partial E$;
+exists and has unit length, so $x\in\partial^*E$ with $\nu_E(x) =
+-(-\nu(x)) = \nu(x)$ (Definition 2.2's minus sign converting the density of
+$D\mathbf{1}_E$ into the outward normal) for every $x\in\partial E$;
 conversely, off $\partial E$ (i.e. on the open sets $\operatorname{int}(E)$
 or $\operatorname{int}(E^c)$), $D\mathbf{1}_E$ vanishes identically in a
 neighborhood by Step 1, so the defining limit of Definition 2.2 is not
@@ -237,9 +246,8 @@ $$
 \int_E \operatorname{div}X\,d\mathcal{L}^n = \int_{\partial^*E}\langle X,\nu_E\rangle\,d\mathcal{H}^{n-1} = \int_{\partial E} \langle X,\nu\rangle\,d\mathcal{H}^{n-1}
 $$
 
-(using $\partial^*E=\partial E$, $\nu_E = \nu$ up to the sign convention of
-Step 1, which cancels consistently against the sign already absorbed into
-$D\mathbf{1}_E$) — which is *exactly* the classical divergence theorem used
+(using $\partial^*E=\partial E$ and $\nu_E = \nu$ from Step 2) — which is
+*exactly* the classical divergence theorem used
 as an input in Step 1. So for $C^1$-boundary domains, Theorem 2.4 is not a
 strictly new statement — it is the classical divergence theorem,
 re-expressed in the language of distributional derivatives and reduced

@@ -108,6 +108,11 @@ $$
 \operatorname{St}(n,p) := \{X\in\mathbb{R}^{n\times p} : X^\top X = I_p\} \quad \text{Stiefel manifold}, \qquad \operatorname{Gr}(n,p) \quad \text{Grassmann manifold (quotient of } \operatorname{St}(n,p) \text{ by } O(p)\text{)}.
 $$
 
+$\operatorname{Gr}(n,p)$ is the *same manifold* as the Grassmannian $G(n,p)$
+of `notes/NOTATION.md` §2.4 — there it parametrizes the candidate tangent
+planes a varifold carries (`notes/09` §0); here it is an optimization domain
+(`13` §1). Two roles, one object.
+
 ### 1.5 GMT-for-shapes
 
 $$
@@ -144,7 +149,7 @@ correspondence runs pure geometry $\to$ its ML instantiation.
 | Connection / parallel transport | $\nabla_XY$ | Riemannian (S)GD update | $x_{k+1}=R_{x_k}(-\eta\operatorname{grad}f(x_k))$ | `13`, `notes/04` §2 |
 | Rectifiable set / current | $E$, $T\in D_k(\mathbb{R}^n)$ | Point cloud / mesh as shape representation | $\hat\mu_X$, $T_h$ | `14`, `notes/07`, `notes/08` |
 | Varifold | $V\in V_k(\mathbb{R}^n)$ | Unoriented shape representation for registration | — | `14`, `notes/09` |
-| Reduced boundary $\partial^*E$ | $\mathcal{H}^{n-1}$-rectifiable | Learned decision boundary / level set of $\hat\eta$ | $L_c=\{\hat\eta=c\}$ | `16`, `notes/09` |
+| Reduced boundary $\partial^*E$ | $\mathcal{H}^{n-1}$-rectifiable | Learned decision boundary / level set of $\hat\eta$ | $L_c=\{\hat\eta=c\}$ | `16` (Row 4 distinguishes $\partial\Omega$ from $L_c$), `notes/09` |
 | Homology / cohomology (holes) | $H_k$, $H^k_{\mathrm{dR}}$ | Persistent homology of data | $H_k(K_t)$, $\mathrm{Dgm}$ | `15`, `notes/05` |
 
 ---

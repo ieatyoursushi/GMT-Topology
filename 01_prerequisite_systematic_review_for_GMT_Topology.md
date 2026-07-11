@@ -729,7 +729,7 @@ depend on: `notes/05` (anchor proofs).
 
 ## 13. Probability / Statistics / ML Bridge
 
-This section is included because the user's probability/statistical-learning
+This section is included because my probability/statistical-learning
 background is not separate from the geometry project — it is one of the
 strongest personal bridges into measure-theoretic geometry.
 

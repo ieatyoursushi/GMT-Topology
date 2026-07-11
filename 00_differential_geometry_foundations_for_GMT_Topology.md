@@ -675,6 +675,11 @@ tensors — they depend on the coordinate chart, and their job is to correct
 ordinary partial differentiation so that differentiating a vector field makes
 intrinsic sense on a curved space.
 
+In the theorem below, $[X,Y]$ is the **Lie bracket** of vector fields: the
+derivation $[X,Y](f) := X(Y(f)) - Y(X(f))$, $f \in C^\infty(M)$ — the two
+directional derivatives applied in both orders, whose difference is again a
+vector field (`notes/04` §0 for the typed definition).
+
 **Theorem (Levi-Civita, existence and uniqueness).** Given a Riemannian
 metric $g$ on $M$, there is a unique connection $\nabla$ satisfying:
 

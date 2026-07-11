@@ -212,6 +212,30 @@ with given initial position and velocity follows from the Picard–Lindelöf
 theorem (`01` §10, proof anchor) applied to the equivalent first-order system
 on $TM$.
 
+**Definition 3.2 (exponential map).** For $p\in M$ and $v\in T_pM$, let
+$\gamma_v$ be the unique maximal geodesic with $\gamma_v(0)=p$,
+$\dot\gamma_v(0)=v$ (existence/uniqueness as above). The **exponential map**
+at $p$ is
+
+$$
+\exp_p : \mathcal{E}_p \to M, \qquad \exp_p(v) := \gamma_v(1), \qquad \mathcal{E}_p := \{v\in T_pM : \gamma_v \text{ is defined on } [0,1]\} \subseteq T_pM,
+$$
+
+with $\mathcal{E}_p$ an open, star-shaped neighborhood of $0\in T_pM$. Two
+properties used downstream: $\exp_p(tv) = \gamma_v(t)$ (geodesics rescale —
+$s\mapsto\gamma_v(ts)$ is a geodesic with initial velocity $tv$, so it *is*
+$\gamma_{tv}$ by uniqueness), and consequently
+
+$$
+\exp_p(0) = p, \qquad d(\exp_p)\big|_0 = \operatorname{id}_{T_pM}
+$$
+
+(differentiate $t\mapsto\exp_p(tv)=\gamma_v(t)$ at $t=0$). *(Lee, IRM, Ch. 5;
+do Carmo, RG, Ch. 3.)* These two properties are exactly the **retraction
+axioms** of `ml-geometry/13` §0: $\exp_p$ is the canonical retraction, and a
+general retraction is any computationally cheaper map agreeing with it to
+first order at $0$.
+
 | Space | Geodesics |
 |---|---|
 | $\mathbb{R}^n$, Euclidean $g$ | straight lines ($\Gamma^k_{ij}\equiv 0$) |
@@ -273,8 +297,9 @@ spanned by $X,Y$.
 ## References Used
 
 - **Lee, IRM** — Ch. 4 (connections, Christoffel symbols), Ch. 5 (Thm 5.10,
-  the Koszul-formula existence/uniqueness proof reproduced in full above),
-  Ch. 7–8 (curvature, Prop. 7.4, sectional curvature).
+  the Koszul-formula existence/uniqueness proof reproduced in full above;
+  geodesics and the exponential map, Definition 3.2), Ch. 7–8 (curvature,
+  Prop. 7.4, sectional curvature).
 - **do Carmo, RG** — Ch. 2 (Thm 3.6, coordinate-based Levi-Civita
   construction, cross-checked against the Koszul formula above), Ch. 4
   (curvature tensor).

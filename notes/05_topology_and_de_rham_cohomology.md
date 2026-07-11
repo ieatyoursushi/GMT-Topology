@@ -70,10 +70,10 @@ $$
 $$
 
 satisfies $d\omega = 0$ (direct computation) but $\omega$ is not exact: if
-$\omega = df$ for some $f\in C^\infty(M)$, then by Corollary 4.4 of
-`notes/03` (Stokes/FT for line integrals reasoning) $\oint_{S^1}\omega =
-f(\text{end})-f(\text{start}) = 0$ for the closed curve $\gamma(t) =
-(\cos t,\sin t)$; but direct computation gives $\oint_{S^1}\omega = 2\pi \ne
+$\omega = df$ for some $f\in C^\infty(M)$, then by the fundamental theorem
+for line integrals (`00` §6; the 0-form case of `notes/03` Theorem 4.2)
+$\oint_{S^1}\omega = f(\text{end})-f(\text{start}) = 0$ for the closed curve
+$\gamma(t) = (\cos t,\sin t)$; but direct computation gives $\oint_{S^1}\omega = 2\pi \ne
 0$. So $\omega$ is closed but not exact — the "hole" at the origin
 obstructs it.
 
@@ -181,7 +181,12 @@ Lift $\eta$ to the universal cover $\mathbb{R} \xrightarrow{\pi} S^1$
 is a closed 1-form on $\mathbb{R}$, hence exact by Corollary 3.2
 ($\mathbb{R}$ is star-shaped), say $\pi^*\eta = dF$, $F\in C^\infty(\mathbb{R})$.
 Since $\oint_{S^1}\eta=0$, i.e. $\int_0^{2\pi}\pi^*\eta = 0$, we get $F(2\pi)
-= F(0) + \int_0^{2\pi}dF = F(0)$, so $F$ is $2\pi$-periodic and descends to a
+= F(0) + \int_0^{2\pi}dF = F(0)$. Moreover $\theta\mapsto F(\theta+2\pi)-F(\theta)$
+is *constant*: its derivative is $F'(\theta+2\pi)-F'(\theta) = 0$, because
+$F'\,d\theta = \pi^*\eta$ and $\pi^*\eta$ is $2\pi$-periodic (as
+$\pi(\theta+2\pi)=\pi(\theta)$). Evaluating the constant at $\theta=0$ gives
+$F(\theta+2\pi)-F(\theta) = F(2\pi)-F(0) = 0$ for *every* $\theta$, so $F$ is
+$2\pi$-periodic and descends to a
 well-defined smooth function $f : S^1\to\mathbb{R}$ with $\pi^*(df) = d(f
 \circ \pi) = dF = \pi^*\eta$; since $\pi^*$ is injective on forms ($\pi$ is a
 local diffeomorphism), $df = \eta$. So $\eta$ is exact, proving the claim,

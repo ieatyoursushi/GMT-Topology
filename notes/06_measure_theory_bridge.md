@@ -256,9 +256,10 @@ $\mathcal{H}^1([0,L]) = \lim_{\delta\to 0}\mathcal{H}^1_\delta([0,L]) \le L$.
 any countable cover of $[0,L]$ with $\operatorname{diam}(C_i)\le\delta$. Each
 $C_i$ is contained in a closed interval $\overline{C_i}$ of length exactly
 $\operatorname{diam}(C_i)$ (the smallest interval containing $C_i$). By
-finite subadditivity of ordinary Lebesgue outer measure applied to the cover
-$\{\overline{C_i}\}$ of the compact set $[0,L]$ — first passing to a finite
-subcover by compactness, which only decreases the total length sum used —
+countable subadditivity of ordinary Lebesgue outer measure applied directly
+to the countable cover $\{\overline{C_i}\}$ of $[0,L]$ — no compactness
+argument is needed (and none is available as stated: the $\overline{C_i}$
+are closed, and finite subcovers are only guaranteed for *open* covers) —
 
 $$
 L = \mathcal{L}^1([0,L]) \le \sum_{i=1}^\infty \mathcal{L}^1(\overline{C_i}) = \sum_{i=1}^\infty \operatorname{diam}(C_i).

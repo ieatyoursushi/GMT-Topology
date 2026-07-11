@@ -1,6 +1,6 @@
 # 14 — Geometric Measure Theory for Shapes: Point Clouds, Meshes, and Registration
 
-### Inspired by Karen Grigorian PhD
+### Inspired by Karen Grigorian, PhD
 
 **Cross-references.** `ml-geometry/NOTATION_ML.md` (typing §1.5, citation
 key §3.1–3.2); `notes/07_rectifiability_and_hausdorff_measure.md` (Lipschitz
@@ -87,8 +87,8 @@ This is the precise justification for "a point cloud/mesh is a legitimate
 discrete stand-in for a smooth shape's current" — i.e. the theoretical
 bridge underlying §1–2's practice.
 
-**Theorem 3.1.** With notation as in §0 ($X\in C^1(\overline\Omega')$ for
-some open $\overline\Omega\subset\Omega'$, $\{\mathcal{T}_h\}$ shape-regular
+**Theorem 3.1.** With notation as in §0 ($X$ extending to a $C^1$ map on
+some open $\Omega'\supset\overline\Omega$, $\{\mathcal{T}_h\}$ shape-regular
 with mesh size $h\to0$), $T_h(\omega)\to T(\omega)$ for every
 $\omega\in\Omega_c^{n-1}(\mathbb{R}^n)$.
 

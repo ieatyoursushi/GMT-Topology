@@ -13,12 +13,15 @@ rectifiable sets).
 ## 0. Standing Definitions
 
 $$
-E \subseteq \mathbb{R}^n, \qquad k \in \{0,1,\dots,n\}, \qquad f : \mathbb{R}^m \to \mathbb{R}^n \quad \text{Lipschitz}: \ \exists\, L<\infty,\ |f(x)-f(y)|\le L|x-y|\ \forall x,y.
+E \subseteq \mathbb{R}^n, \qquad k \in \{0,1,\dots,n\}, \qquad f : \mathbb{R}^m \to \mathbb{R}^n \quad \text{Lipschitz}: \ \exists\, \lambda<\infty,\ |f(x)-f(y)|\le \lambda|x-y|\ \forall x,y.
 $$
 
 $$
-\operatorname{Lip}(f) := \inf\{L : |f(x)-f(y)|\le L|x-y|\ \forall x,y\}.
+\operatorname{Lip}(f) := \inf\{\lambda : |f(x)-f(y)|\le \lambda|x-y|\ \forall x,y\}
 $$
+
+(the Lipschitz-constant bound is written $\lambda$ here, reserving $L$ for
+the linear map below).
 
 $$
 L : \mathbb{R}^k \to \mathbb{R}^n \quad \text{linear}, \qquad k\le n, \qquad L^*L : \mathbb{R}^k\to\mathbb{R}^k \quad \text{(adjoint composed with $L$)}.

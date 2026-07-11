@@ -66,15 +66,20 @@ Fifteen named coordinates, in four groups:
 ### 0.2 The oracle
 
 $$
-f^*(x) := \mathbb{1}[\ell\le-\theta_1]\cdot\mathbb{1}[\sigma_{TE}\le\theta_2]\cdot\mathbb{1}[G^{YTD}>0]\cdot\mathbb{1}[\mathcal{W}_{\mathrm{wash}}\ge\theta_3], \qquad f^*:\mathcal{X}\to\{0,1\},
+f^*(x) := \mathbb{1}[L\le-\theta_1]\cdot\mathbb{1}[\sigma_{TE}\le\theta_2]\cdot\mathbb{1}[G^{YTD}>0]\cdot\mathbb{1}[\mathcal{W}_{\mathrm{wash}}\ge\theta_3], \qquad f^*:\mathcal{X}\to\{0,1\}
 $$
+
+(the first gate constrains the lot-level unrealized-return coordinate $L$
+of §0.1's table — an unrealized loss of at least $\theta_1$; the memo's
+lowercase $\ell$ for the same coordinate is not used here, matching the
+$W$/$\mathcal{W}_{\mathrm{wash}}$ disambiguation above),
 
 $$
 \theta_1=0.02,\quad \theta_2=0.05,\quad\theta_3=30 \quad \text{(DIML, `src/Core/Oracle/OracleBoundary.cs`, pinned 2026-07-01 @ 7a15f09)}.
 $$
 
 $$
-\Omega := \{x\in\mathcal{X} : f^*(x)=1\} = H_1\cap H_2\cap H_3\cap H_4, \qquad H_1=\{\ell\le-\theta_1\},\ H_2=\{\sigma_{TE}\le\theta_2\},\ H_3=\{G^{YTD}>0\},\ H_4=\{\mathcal{W}_{\mathrm{wash}}\ge\theta_3\}.
+\Omega := \{x\in\mathcal{X} : f^*(x)=1\} = H_1\cap H_2\cap H_3\cap H_4, \qquad H_1=\{L\le-\theta_1\},\ H_2=\{\sigma_{TE}\le\theta_2\},\ H_3=\{G^{YTD}>0\},\ H_4=\{\mathcal{W}_{\mathrm{wash}}\ge\theta_3\}.
 $$
 
 ### 0.3 Soft labels and learned posterior
@@ -112,7 +117,7 @@ date.
 **Proposition 1.1.** $\Omega$ is convex (a finite intersection of half-spaces
 is always convex). Moreover, since the oracle's four gates constrain only
 four of $\mathcal{X}$'s fifteen coordinates, $\Omega$ has a product structure:
-relabeling coordinates as $(\ell,\sigma_{TE},G^{YTD},\mathcal{W}_{\mathrm{wash}},\,\text{the
+relabeling coordinates as $(L,\sigma_{TE},G^{YTD},\mathcal{W}_{\mathrm{wash}},\,\text{the
 other 11})$,
 
 $$
@@ -215,7 +220,8 @@ agrees, up to an $\mathcal{H}^{d-1}$-null set, with $\bigcup_i F_i^\circ$,
 and the measure-theoretic normal is $n_i$ (constant) on each $F_i^\circ$. By
 De Giorgi's structure theorem (`notes/09` Theorem 2.3), $\mathbf{1}_P\in
 BV(\mathbb{R}^d)$, $\partial^*P$ is $(d{-}1)$-rectifiable with $D\mathbf{1}_P
-= \nu_P\,\mathcal{H}^{d-1}\llcorner\partial^*P$, and $P(P)=\mathcal{H}^{d-1}(\partial^*P)$.
+= -\nu_P\,\mathcal{H}^{d-1}\llcorner\partial^*P$ (sign per `notes/09`
+Definition 2.2's outward-normal convention), and $P(P)=\mathcal{H}^{d-1}(\partial^*P)$.
 Since the $F_i^\circ$ (for active $i$) are pairwise disjoint (a point in the
 relative interior of $F_i$ lies strictly off every other constraint
 hyperplane, by the same argument as Step 2, so cannot simultaneously lie in
@@ -377,7 +383,7 @@ own honesty caveat (Row 7 below) already concedes.
 **Verdict: now rigorous, with an a.e.-in-$c$ qualifier the memo omits.** By
 the coarea formula (`notes/07` Theorem 3.3, applicable since $\hat\eta$ is
 at least Lipschitz as a trained GBT/logistic model's output composed with
-standard feature maps), $L_c$ is $(n{-}1)$-rectifiable for
+standard feature maps), $L_c$ is $(d{-}1)$-rectifiable ($d=15$ here) for
 $\mathcal{L}^1$-almost every $c\in[0,1]$ — not necessarily for *every* $c$
 (a level set at a critical value can degenerate). The qualifier is a small
 but genuine addition.

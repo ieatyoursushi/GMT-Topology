@@ -162,13 +162,7 @@ Leibniz rule holds by the ordinary product rule applied to $t\mapsto
 f(\gamma(t))g(\gamma(t))$:
 
 $$
-v_\gamma(fg) = \frac{d}{dt}\Big|_{t=0}\big[f(\gamma(t))g(\gamma(t))\big] = f(\gamma(0))\,g'(\gamma(t))\big|_{t=0}\cdots
-$$
-
-more precisely, by the chain rule,
-
-$$
-v_\gamma(fg) = f(p)\,v_\gamma(g) + g(p)\,v_\gamma(f).
+v_\gamma(fg) = \frac{d}{dt}\Big|_{t=0}\big[(f\circ\gamma)(t)\,(g\circ\gamma)(t)\big] = f(\gamma(0))\,(g\circ\gamma)'(0) + g(\gamma(0))\,(f\circ\gamma)'(0) = f(p)\,v_\gamma(g) + g(p)\,v_\gamma(f).
 $$
 
 So $v_\gamma \in T_pM^{(ii)}$. If $\gamma_1\sim\gamma_2$, then for any chart
@@ -216,8 +210,7 @@ f = f(p) + \sum_i g^i\cdot\Big(\frac{\partial \hat f}{\partial x^i}(0)\circ\varp
 $$
 
 Applying the derivation $v$, using linearity, Leibniz, and $v(\text{const})=0$
-(which follows from Leibniz applied to $1\cdot 1=1$: $v(1)=v(1)v(1)+v(1)v(1)$... 
-more directly $v(1) = v(1\cdot 1) = 1\cdot v(1) + 1\cdot v(1) = 2v(1) \Rightarrow v(1)=0$,
+(Leibniz applied to $1\cdot 1=1$: $v(1) = v(1\cdot 1) = 1\cdot v(1) + 1\cdot v(1) = 2v(1) \Rightarrow v(1)=0$,
 hence $v(c)=cv(1)=0$ for constants $c$), and $g^i(p)=0$, every term involving
 a product of two $g^i$-factors vanishes under $v$ by Leibniz (each factor is
 $0$ at $p$), leaving
@@ -361,8 +354,10 @@ this construction is used but not reproved here — it is exactly the kind of
 
 A **vector field** is a smooth section of $\pi$: $X : M \to TM$ with $\pi\circ
 X = \mathrm{id}_M$, equivalently $X(p) \in T_pM$ for every $p$, varying
-smoothly. Full use of vector fields (flows, Lie bracket) is in `00` §9;
-covariant differentiation of vector fields is in `notes/04` §2.
+smoothly. Flows of vector fields are in `00` §9; the Lie bracket $[X,Y]$ is
+defined in `notes/04` §0 (and first used in `00` §18, which restates the
+definition inline); covariant differentiation of vector fields is in
+`notes/04` §2.
 
 ---
 

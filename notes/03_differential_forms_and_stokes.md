@@ -193,9 +193,9 @@ $$
 $$
 
 For general $\omega$, extend by a partition of unity subordinate to an
-oriented atlas (standard; black-boxed per `01` §17). **Proposition 3.4** this
-is independent of the chart used, precisely because the change-of-variables
-formula supplies the factor $|\det J| = \det J$ (positive by orientation
+oriented atlas (standard; black-boxed per `01` §17). **Proposition 3.4.**
+$\int_M\omega$ is independent of the chart used, precisely because the
+change-of-variables formula supplies the factor $|\det J| = \det J$ (positive by orientation
 compatibility) needed to match $\int_{\varphi(U)} f\circ\varphi^{-1}$ computed
 in two different oriented charts.
 
@@ -306,8 +306,9 @@ Each classical theorem is Theorem 4.2 with $(M,\partial M,\omega)$ specialized
 as follows; each line names the exact types being matched.
 
 **Corollary 4.3 (Fundamental Theorem of Calculus).** $M = [a,b]$ (a
-1-manifold with boundary $\{a,b\}$, oriented $b\to a$ negative to $a\to b$
-positive), $\omega = f \in \Omega^0([a,b]) = C^\infty([a,b])$, $d\omega = f'\,dx$:
+1-manifold with boundary $\{a,b\}$; the induced orientation of Definition 3.2
+counts the endpoint $b$ with sign $+$ and $a$ with sign $-$),
+$\omega = f \in \Omega^0([a,b]) = C^\infty([a,b])$, $d\omega = f'\,dx$:
 
 $$
 \int_a^b f'(x)\,dx = f(b) - f(a).
