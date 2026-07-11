@@ -353,9 +353,11 @@ GMT-topology/
 │   ├── NOTATION_ML.md                             ← extends this file for Phase 3
 │   ├── 00_geometric_machine_learning_hub.md        ← Phase 3 survey/hub
 │   └── 10–16 …                                     ← Phase 3 deep dives + capstone
-└── stochastic/                                     ← Phase 4: stochastic analysis (skeleton)
+└── stochastic/                                     ← Phase 4: stochastic analysis + finance weave
     ├── NOTATION_STOCH.md                           ← extends this file + NOTATION_ML for Phase 4
-    └── 00_stochastic_analysis_hub.md                ← Phase 4 survey/hub (deep dives 20–23 planned)
+    ├── 00_stochastic_analysis_hub.md                ← Phase 4 survey/hub
+    └── 20–23 …                                      ← Phase 4 deep dives (Itô, Fokker–Planck/W₂,
+                                                        diffusion models, signatures)
 ```
 
 `00` and `01` are **survey-altitude**: they cover the whole arc quickly, with

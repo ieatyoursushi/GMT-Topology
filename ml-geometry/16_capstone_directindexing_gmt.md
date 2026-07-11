@@ -93,8 +93,11 @@ $$
 $$
 
 (here $S^{(p)}$ are simulated **geometric Brownian motion** paths — typed
-in `stochastic/NOTATION_STOCH.md` §1.3; the supporting Itô-calculus
-machinery is scoped to the planned `stochastic/20`)
+in `stochastic/NOTATION_STOCH.md` §1.3 and solved in `stochastic/20`
+Theorem 4.1; `stochastic/20` §6.2 shows the one-gate idealization of this
+label has an exact inverse-Gaussian closed form — usable as a unit test
+on the simulator — while the full four-gate, path-dependent oracle does
+not, which is what justifies the Monte Carlo here)
 
 $$
 \text{(DIML, `src/Core/Simulation/SoftLabelBuilder.cs`, pinned 2026-07-01 @ 7a15f09)}.

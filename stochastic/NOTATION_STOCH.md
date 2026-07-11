@@ -9,11 +9,10 @@ objects of probability-in-continuous-time, a citation key split by maturity,
 and a register note, since Phase 4 — unlike Phase 3 — spans settled
 classical mathematics and genuinely young material in the same phase.
 
-**Status.** Phase 4 is currently a **skeleton**: this file and the hub
-(`stochastic/00_stochastic_analysis_hub.md`) establish the typing context,
-citation key, and planned deep dives (`20`–`23`, not yet written). This
-matches the repo's own map-first discipline (`01` §1): the map and the
-typed vocabulary come first; anchor proofs follow.
+**Status.** Phase 4 is **complete**: this file, the hub
+(`stochastic/00_stochastic_analysis_hub.md`), and the four deep dives
+`20`–`23`. The phase was built map-first (`01` §1) — this file and the hub
+came first; the deep dives carry the anchor proofs and the finance weave.
 
 ---
 
@@ -29,7 +28,7 @@ Every document in `stochastic/` is bound by, without restating:
 - **`ml-geometry/NOTATION_ML.md` §1–§4** — Phase 4 reuses Phase-3 objects
   directly: the score $s_\theta$ (§1.1), $W_p$ and entropic OT/Sinkhorn
   (§1.2), retractions (§1.4), and the `DIML` cross-repo citation convention
-  (§4) — the planned `20` closes a typing gap in `16` §0.3 (see §5 below).
+  (§4) — `20` closes a typing gap in `16` §0.3 (see §5 below).
 
 ---
 
@@ -72,7 +71,7 @@ $$
 $$
 
 $$
-\mathbb{E}\Big[\Big(\int_0^t H_s\,dB_s\Big)^2\Big] = \mathbb{E}\int_0^t H_s^2\,ds \quad \text{(Itô isometry — planned anchor of `20`; it is `01' §13.9's $L^2$ inner-product geometry doing the real work)}.
+\mathbb{E}\Big[\Big(\int_0^t H_s\,dB_s\Big)^2\Big] = \mathbb{E}\int_0^t H_s^2\,ds \quad \text{(Itô isometry — anchor of `20' Theorem 2.1; it is `01' §13.9's $L^2$ inner-product geometry doing the real work)}.
 $$
 
 ### 1.3 SDEs, generators, and GBM
@@ -127,7 +126,7 @@ $$
 > — differentiation in the *state*. Same log-density, different slot;
 > informal usage calls both "the score," and the distinction (Fisher score
 > vs. Stein score) matters exactly when both appear in one argument, as in
-> score-matching objectives (planned `22`).
+> score-matching objectives (`22` §3).
 
 $$
 d\bar X_{\bar t} = \big[-b(\bar X_{\bar t}) + \sigma\sigma^\top\nabla_x\log p_{\bar t}(\bar X_{\bar t})\big]\,d\bar t + \sigma\,d\bar B_{\bar t} \quad \text{(reverse-time SDE, Anderson 1982 — the identity generative diffusion models run on)}.
@@ -331,10 +330,10 @@ Split by maturity, as `ml-geometry/NOTATION_ML.md` §3 does.
 ## 4. Register Note for Phase 4 — a Maturity Ladder, Not One Register
 
 Phase 3 could use a single register ("young field, honest framing").
-Phase 4 cannot — its four planned topics sit at different rungs, and each
+Phase 4 cannot — its four topics sit at different rungs, and each
 document will say which rung it is on:
 
-| Planned file | Topic | Maturity | Register |
+| File | Topic | Maturity | Register |
 |---|---|---|---|
 | `20` | Brownian motion, Itô calculus | settled classical (Itô 1944; canonical texts) | Phase-2 register: settled canon, cite the monographs |
 | `21` | Fokker–Planck as $W_2$-gradient flow | settled-with-a-monograph (JKO 1998 $\to$ AGS 2008) | mostly settled; frontier at the edges |
@@ -346,11 +345,13 @@ document will say which rung it is on:
 ## 5. DIML Tie-In
 
 `ml-geometry/16` §0.3 defines the soft label $\tilde y_{GBM}$ as a 200-path
-first-passage frequency of simulated GBM paths — with GBM itself never
-typed anywhere in this repository, a gap by the house rules this repo holds
-itself to. §1.3 above supplies the typed definition; the planned `20` will
-carry the supporting material (existence, the closed form via Itô's
-formula, and first-passage machinery), at which point `16` §0.3 should
-cross-reference `stochastic/20` rather than leaving GBM as an undefined
-primitive. All `DIML` citations in Phase 4 follow the pinning convention of
-`ml-geometry/NOTATION_ML.md` §4 unchanged.
+first-passage frequency of simulated GBM paths — and GBM was, until this
+phase, never typed anywhere in this repository, a gap by the house rules
+this repo holds itself to. §1.3 above supplies the typed definition; `20`
+Theorem 4.1 solves the process, and `20` §6.2 carries the first-passage
+machinery (including the one-gate closed form usable as a unit test on
+DIML's simulator, and the reason the four-gate oracle has none). `16`
+§0.3 cross-references these directly — GBM is no longer an undefined
+primitive anywhere in this repository. All `DIML` citations in Phase 4
+follow the pinning convention of `ml-geometry/NOTATION_ML.md` §4
+unchanged.

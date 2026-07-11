@@ -9,10 +9,10 @@ phase completes); `ml-geometry/10` (score), `ml-geometry/11` (optimal
 transport, Sinkhorn), `ml-geometry/16` (the capstone whose GBM typing gap
 this phase closes).
 
-**Status.** Phase 4 is a **skeleton**: this hub and `NOTATION_STOCH.md`
-exist; the four deep dives (`20`–`23`) are planned but not yet written.
-Every "(planned)" marker below is a commitment of scope, not a citation to
-an existing document.
+**Status.** Phase 4 is **complete**: this hub, `NOTATION_STOCH.md`, and
+the four deep dives `20`–`23`, each carrying its anchor proofs and its
+finance/options-practitioner weave. The phase was built map-first (`01`
+§1): notation and hub came first, deep dives followed.
 
 ---
 
@@ -22,7 +22,7 @@ This document uses `stochastic/NOTATION_STOCH.md` §1's typing context
 throughout, plus everything inherited from `notes/NOTATION.md` §2 and
 `ml-geometry/NOTATION_ML.md` §1. No new objects are introduced here, and no
 anchor proof is carried in this document — matching the precedent of `00`,
-`01`, and the Phase-3 hub exactly; proofs will live in the deep dives.
+`01`, and the Phase-3 hub exactly; proofs live in the deep dives `20`–`23`.
 
 ---
 
@@ -59,23 +59,28 @@ rung.
 
 ---
 
-## 2. The Four-Topic Survey (planned)
+## 2. The Four-Topic Survey
 
 | Topic | Core object | Core question | Anchor citation | File | Reuses from Phases 1–3 |
 |---|---|---|---|---|---|
-| Brownian motion & Itô calculus | $B_t$, $[X]_t$, $\int H\,dB$ | What replaces the chain rule when paths are continuous but nowhere differentiable? | Karatzas–Shreve; Le Gall | `20` *(planned)* | `notes/06` (measure, DCT), `01` §13.9 ($L^2$ geometry), `00` §21 (heat), `notes/07` (the a.e.-differentiability contrast) |
-| Diffusions & Wasserstein gradient flows | $\mathcal{L}$, $\rho_t$, $W_2$ | In what geometry is diffusion the steepest descent of entropy? | JKO 1998; AGS | `21` *(planned)* | `ml-geometry/11` ($W_p$, Sinkhorn$\to$Schrödinger bridge), `00` §21 ($\Delta_g$), `ml-geometry/13` (gradient flows) |
-| Score-based diffusion models | forward/reverse SDE, $\nabla_x\log p_t$ | How does learning the score turn a diffusion into a generative sampler? | Song et al. 2021 (anchored on Anderson 1982) | `22` *(planned)* | `ml-geometry/10` (score), `20`, `21` |
-| Path signatures & rough paths | $S(X)$, Chen's identity | What feature map linearizes continuous functions of a path? | Lyons 1998; Friz–Hairer | `23` *(planned)* | `notes/03` (iterated line integrals of 1-forms), `01` §13 (time-series/ML bridge) |
+| Brownian motion & Itô calculus | $B_t$, $[X]_t$, $\int H\,dB$ | What replaces the chain rule when paths are continuous but nowhere differentiable? | Karatzas–Shreve; Le Gall | `20` | `notes/06` (measure, DCT), `01` §13.9 ($L^2$ geometry), `00` §21 (heat), `notes/07` (the a.e.-differentiability contrast) |
+| Diffusions & Wasserstein gradient flows | $\mathcal{L}$, $\rho_t$, $W_2$ | In what geometry is diffusion the steepest descent of entropy? | JKO 1998; AGS | `21` | `ml-geometry/11` ($W_p$, Sinkhorn$\to$Schrödinger bridge), `00` §21 ($\Delta_g$), `ml-geometry/13` (gradient flows) |
+| Score-based diffusion models | forward/reverse SDE, $\nabla_x\log p_t$ | How does learning the score turn a diffusion into a generative sampler? | Song et al. 2021 (anchored on Anderson 1982) | `22` | `ml-geometry/10` (score), `20`, `21` |
+| Path signatures & rough paths | $S(X)$, Chen's identity | What feature map linearizes continuous functions of a path? | Lyons 1998; Friz–Hairer | `23` | `notes/03` (iterated line integrals of 1-forms), `01` §13 (time-series/ML bridge) |
 
-Candidate anchor proofs, one per deep dive (subject to revision when
-written): the **Itô isometry** from scratch (`20`); the **one-step JKO
-minimizer exists and is unique** via the direct method, reusing
-`ml-geometry/11` Proposition 4.2's strict-convexity pattern (`21`); the
-**exactness of the reverse-time SDE for a finite-state or
-Ornstein–Uhlenbeck special case**, where Anderson's identity can be
-verified by direct computation (`22`); **Chen's identity**
-$S(X * Y) = S(X)\otimes S(Y)$ for concatenation of BV paths (`23`).
+Anchor proofs as delivered: the **Itô isometry** (`20` Theorem 2.1; plus
+quadratic variation, the GBM closed form, and the reflection principle in
+the same document); the **free-energy dissipation identity** (`21` Theorem
+2.1) together with **Breeden–Litzenberger** (`21` Theorem 5.1); the
+**denoising-score-matching identity** and the **OU transition law** (`22`
+Theorem 3.1, Proposition 2.1), with Anderson's reverse SDE verified
+directly on stationary OU; and **Chen's identity** (`23` Theorem 3.1, plus
+the tensor-exponential and reparametrization-invariance anchors). One
+honest swap against the original scoping: the one-step JKO
+existence/uniqueness anchor first planned for `21` needs AGS-level
+lower-semicontinuity machinery this repo has not built, so JKO is stated
+and cited at recognition depth (`21` §3) and the dissipation identity
+carries that document's anchor weight instead.
 
 ---
 
@@ -88,7 +93,7 @@ Phase 1 (00, 01)           Phase 2 (notes/)            Phase 3 (ml-geometry/)
        │                          │                       gradient descent (13)
        ▼                          ▼                            │
 ┌──────────────────────────────────────────────────────────────▼──────────┐
-│                        Phase 4 (stochastic/) — planned                    │
+│                          Phase 4 (stochastic/)                            │
 │                                                                            │
 │  01 §13.9 (L²) ── 06 (measure) ──► 20 Brownian motion & Itô calculus       │
 │                                        │  (GBM: closes 16 §0.3's gap)      │
@@ -109,41 +114,53 @@ already owns this repo's finance application (DIML). Instead, the
 distinctively geometric finance material is placed where its mathematics
 lives:
 
-- **`20`**: GBM (typed in `NOTATION_STOCH.md` §1.3) and first-passage
-  machinery — directly rigorizing the $\tilde y_{GBM}$ soft-label
-  construction of `ml-geometry/16` §0.3; the Black–Scholes PDE as a
-  boundary-value cousin of the heat equation (`00` §21), via Itô's formula
-  (Black–Scholes 1973; Shreve, SCF II).
-- **`21`**: the Schrödinger bridge / martingale-OT corner of mathematical
-  finance, at recognition depth (Léonard 2014) — the same entropic-OT
-  object as `ml-geometry/11` §4's Sinkhorn iteration.
-- Stochastic portfolio theory (Fernholz) is flagged as an optional lead,
-  not scoped: genuinely geometric, but niche relative to the four topics
-  above.
+- **`20`** §5–§6: the delta-hedging derivation of the Black–Scholes PDE
+  and its reduction to `00` §21's heat equation; implied volatility as
+  the market's coordinate system; barrier/first-passage laws (reflection
+  principle, inverse-Gaussian barrier formula), directly rigorizing the
+  $\tilde y_{GBM}$ soft label of `ml-geometry/16` §0.3 (Black–Scholes
+  1973; Merton 1973; Shreve, SCF II).
+- **`21`** §4–§5: the volatility surface as a database of risk-neutral
+  densities — Breeden–Litzenberger proved, Dupire's local-volatility
+  forward equation as Fokker–Planck read in contract variables, and
+  martingale OT as `ml-geometry/11`'s couplings with a hedging constraint
+  (Breeden–Litzenberger 1978; Dupire 1994; BHLP 2013); the Schrödinger
+  bridge as the stochastic face of entropic OT (Léonard 2014; CGP 2021).
+- **`22`** §6 and **`23`** §6: deep hedging and generative market
+  simulators (flagged current; Buehler et al. 2019); rough volatility and
+  signature-based pricing, hedging, execution, and calibration (GJR 2018;
+  BFG 2016; LNP 2020; KLP 2020; Cuchiero et al. 2023, 2025).
+- Stochastic portfolio theory (Fernholz) remains flagged as an optional
+  lead, not scoped: genuinely geometric, but niche relative to the four
+  topics above.
 
 ---
 
 ## 5. The DIML Patch, Previewed
 
 `ml-geometry/16` §0.3 uses 200 simulated GBM paths to define
-$\tilde y_{GBM}$ — a *first-passage probability* — with GBM itself never
-defined in this repository. `NOTATION_STOCH.md` §1.3 now carries the typed
-definition, and `20` is scoped to carry the mathematics: existence and the
-closed form $S_t = S_0\exp((\mu-\sigma^2/2)t+\sigma B_t)$ as an Itô-formula
-computation, plus what can and cannot be said about first-passage
-probabilities through the oracle's gate structure. When `20` lands, `16`
-§0.3 should gain a cross-reference to it, closing the last untyped
-primitive in the capstone.
+$\tilde y_{GBM}$ — a *first-passage probability* — and GBM was, until this
+phase, never defined in this repository. The patch is now in three parts:
+`NOTATION_STOCH.md` §1.3 carries the typed definition; `20` Theorem 4.1
+solves the process (the closed form as an Itô-formula computation, with
+uniqueness); and `20` §6.2 settles what is analytically available — the
+oracle's one-gate idealization has an exact inverse-Gaussian closed form
+(usable as a unit test on DIML's simulator), while the four-gate,
+path-dependent oracle provably has no such form, so `16` §0.3's Monte
+Carlo is justified rather than merely convenient. `16` §0.3
+cross-references all of this; no untyped primitive remains in the
+capstone.
 
 ---
 
 ## 6. How to Read Phase 4
 
-Suggested order, once the deep dives exist: `NOTATION_STOCH.md` $\to$ this
-hub $\to$ `20` $\to$ `21` $\to$ `22` (which depends on both) $\to$ `23`
-(independent of `21`–`22`; needs only `20` and `notes/03`). Until then,
-`NOTATION_STOCH.md` §1 is usable on its own as the typed vocabulary — in
-particular §1.3's GBM definition, which `ml-geometry/16` already needs.
+Suggested order: `NOTATION_STOCH.md` $\to$ this hub $\to$ `20` $\to$ `21`
+$\to$ `22` (which depends on both) $\to$ `23` (independent of `21`–`22`;
+needs only `20` and `notes/03`). The finance thread reads in the same
+order: Black–Scholes and barriers (`20` §5–§6) $\to$ the volatility
+surface as densities (`21` §5) $\to$ simulators and deep hedging (`22`
+§6) $\to$ rough volatility and signature trading (`23` §6).
 
 ---
 

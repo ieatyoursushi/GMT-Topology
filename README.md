@@ -38,9 +38,12 @@ ml-geometry/15_topological_data_analysis.md         ─┘
 ml-geometry/16_capstone_directindexing_gmt.md                 ← capstone: applies notes/07–09
                                                                  to the author's own ML project
 
-stochastic/NOTATION_STOCH.md                                   ← Phase 4 (skeleton): typing context
-stochastic/00_stochastic_analysis_hub.md                          + citation key + survey/hub; deep
-                                                                  dives 20–23 planned, not yet written
+stochastic/NOTATION_STOCH.md                                   ← Phase 4: extends both NOTATION files
+stochastic/00_stochastic_analysis_hub.md                        ← Phase 4 survey/hub
+stochastic/20_brownian_motion_and_ito_calculus.md    ─┐
+stochastic/21_fokker_planck_and_wasserstein_flows.md  │  Phase 4 deep dives; mathematical-finance/
+stochastic/22_score_based_diffusion_models.md         │  options-practitioner material woven in
+stochastic/23_path_signatures_and_rough_paths.md     ─┘
 ```
 
 `00` and `01` move fast, at survey altitude, covering the whole arc from
@@ -59,12 +62,16 @@ superseded as the field moves — it is PhD-direction reconnaissance, not a
 settled canon. Its capstone applies the pure-math machinery of `notes/07`–`09`
 to a separate personal ML research project, closing the loop on that
 project's own (self-flagged, aspirational) geometric-measure-theory framing.
-**Phase 4** (`stochastic/`) is currently scaffolding: its notation file and
-hub fix the typed vocabulary (Brownian motion, Itô integration, generators,
-geometric Brownian motion — the last of which the Phase-3 capstone already
-uses), the citation key, and the scope of four planned deep dives (Itô
-calculus, Wasserstein gradient flows, score-based diffusion models, path
-signatures), each to be written to the same anchor-proof standard.
+**Phase 4** (`stochastic/`) extends the arc to time and randomness — Itô
+calculus, Fokker–Planck and Wasserstein gradient flows, score-based
+diffusion models, and path signatures — with mathematical-finance and
+options-practitioner material woven through rather than siloed:
+Black–Scholes reduced to the heat equation, first-passage laws rigorizing
+the Phase-3 capstone's GBM soft labels, Breeden–Litzenberger and Dupire
+read off the volatility surface, rough volatility and signature trading.
+Unlike Phase 3's single register, Phase 4 states a maturity ladder per
+document: Itô calculus is settled canon; diffusion models are
+Phase-3-style reconnaissance.
 
 **Notational convention.** Every object in these notes is given an explicit,
 redundant type signature at the moment it's introduced — domain, codomain,

@@ -1091,9 +1091,13 @@ GMT-Topology/
 │   ├── 14_gmt_for_shapes.md
 │   ├── 15_topological_data_analysis.md
 │   └── 16_capstone_directindexing_gmt.md
-└── stochastic/                                   ← Phase 4: stochastic analysis (skeleton)
+└── stochastic/                                   ← Phase 4: stochastic analysis + finance weave
     ├── NOTATION_STOCH.md
-    └── 00_stochastic_analysis_hub.md              (deep dives 20–23 planned)
+    ├── 00_stochastic_analysis_hub.md
+    ├── 20_brownian_motion_and_ito_calculus.md
+    ├── 21_fokker_planck_and_wasserstein_flows.md
+    ├── 22_score_based_diffusion_models.md
+    └── 23_path_signatures_and_rough_paths.md
 ```
 
 ---
