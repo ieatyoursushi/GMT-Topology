@@ -146,6 +146,32 @@ $$
 — the **signature**: iterated integrals, i.e. repeated `notes/03`-style line
 integration of the coordinate 1-forms $dx^i$ along the path (Chen 1958).
 
+$$
+T\big((\mathbb{R}^d)\big) := \prod_{k\ge0}(\mathbb{R}^d)^{\otimes k} \quad \text{the (extended) tensor algebra, with product } \otimes, \qquad S(X) \in T\big((\mathbb{R}^d)\big).
+$$
+
+$$
+X * Y \quad \text{concatenation of paths}: \ X:[0,s]\to\mathbb{R}^d,\ Y:[s,s+u]\to\mathbb{R}^d \text{ with } Y_s = X_s, \text{ run in sequence}.
+$$
+
+### 1.7 Mathematical finance (options-practitioner objects)
+
+$$
+r \ge 0 \quad \text{riskless rate}, \qquad \mathbb{Q}\sim\mathbb{P} \quad \text{an equivalent martingale (risk-neutral) measure}: \ e^{-rt}S_t \text{ is a } \mathbb{Q}\text{-martingale}.
+$$
+
+$$
+C(K,T) := e^{-rT}\,\mathbb{E}_{\mathbb{Q}}\big[(S_T-K)^+\big] \quad \text{European call price}, \qquad (s-K)^+ := \max(s-K,0), \qquad K>0 \text{ strike}, \ T>0 \text{ expiry}.
+$$
+
+$$
+q_T \quad \text{the risk-neutral density of } S_T \text{ under } \mathbb{Q} \text{ (when it exists)}, \qquad \sigma_{\mathrm{loc}}(K,T) \quad \text{local volatility (`21' §5)}, \qquad \sigma_{\mathrm{impl}}(K,T) \quad \text{Black–Scholes implied volatility}.
+$$
+
+$$
+\tau_b := \inf\{t\ge0 : S_t \le b\} \quad \text{first-passage (barrier-hitting) time to level } b>0.
+$$
+
 ---
 
 ## 2. Master Dictionary Supplement: Geometry/GMT Object $\to$ Stochastic Instantiation
@@ -209,6 +235,30 @@ Split by maturity, as `ml-geometry/NOTATION_ML.md` §3 does.
 - **Léonard 2014** — C. Léonard, "A survey of the Schrödinger problem and
   some of its connections with optimal transport," *Discrete and Continuous
   Dynamical Systems A* 34(4), 2014.
+- **Itô 1944** — K. Itô, "Stochastic Integral," *Proceedings of the
+  Imperial Academy (Tokyo)* 20(8), 1944.
+- **Merton 1973** — R. C. Merton, "Theory of Rational Option Pricing,"
+  *Bell Journal of Economics and Management Science* 4(1), 1973.
+- **Harrison–Pliska 1981** — J. M. Harrison, S. R. Pliska, "Martingales and
+  Stochastic Integrals in the Theory of Continuous Trading," *Stochastic
+  Processes and their Applications* 11(3), 1981.
+- **Breeden–Litzenberger 1978** — D. T. Breeden, R. H. Litzenberger,
+  "Prices of State-Contingent Claims Implicit in Option Prices," *Journal
+  of Business* 51(4), 1978.
+- **Dupire 1994** — B. Dupire, "Pricing with a Smile," *Risk* 7(1), 1994.
+- **Gatheral, TVS** — J. Gatheral, *The Volatility Surface: A
+  Practitioner's Guide*, Wiley Finance, Wiley, 2006.
+- **BHLP 2013** — M. Beiglböck, P. Henry-Labordère, F. Penkner,
+  "Model-independent bounds for option prices — a mass transport approach,"
+  *Finance and Stochastics* 17(3), 2013.
+- **Hyvärinen 2005** — A. Hyvärinen, "Estimation of Non-Normalized
+  Statistical Models by Score Matching," *Journal of Machine Learning
+  Research* 6, 2005.
+- **Vincent 2011** — P. Vincent, "A Connection Between Score Matching and
+  Denoising Autoencoders," *Neural Computation* 23(7), 2011.
+- **Hambly–Lyons 2010** — B. Hambly, T. Lyons, "Uniqueness for the
+  signature of a path of bounded variation and the reduced path group,"
+  *Annals of Mathematics* 171(1), 2010.
 
 ### 3.2 Current (2020s) — anchor on the monograph/survey, treat individual results as supporting examples that may be superseded
 
@@ -227,6 +277,54 @@ Split by maturity, as `ml-geometry/NOTATION_ML.md` §3 does.
   the Signature Method in Machine Learning," arXiv:1603.03788. *(Flag:
   arXiv-only survey; the standard entry point, likely to be superseded by a
   textbook treatment as the sub-field matures.)*
+- **Lipman et al. 2023** — Y. Lipman, R. T. Q. Chen, H. Ben-Hamu, M.
+  Nickel, M. Le, "Flow Matching for Generative Modeling," *ICLR*, 2023.
+- **Lipman et al. 2024, FM Guide** — Y. Lipman, M. Havasi, P. Holderrieth,
+  N. Shaul, M. Le, B. Karrer, R. T. Q. Chen, D. Lopez-Paz, H. Ben-Hamu, I.
+  Gat, "Flow Matching Guide and Code," arXiv:2412.06264, 2024. *(Flag:
+  arXiv guide; the field's current de facto reference for the
+  flow-matching reformulation of diffusion models.)*
+- **Albergo et al. 2023** — M. S. Albergo, N. M. Boffi, E. Vanden-Eijnden,
+  "Stochastic Interpolants: A Unifying Framework for Flows and
+  Diffusions," arXiv:2303.08797, 2023.
+- **Song et al. 2023** — Y. Song, P. Dhariwal, M. Chen, I. Sutskever,
+  "Consistency Models," *ICML*, 2023.
+- **CGP 2021** — Y. Chen, T. T. Georgiou, M. Pavon, "Stochastic Control
+  Liaisons: Richard Sinkhorn Meets Gaspard Monge on a Schrödinger Bridge,"
+  *SIAM Review* 63(2), 2021.
+- **Salvi et al. 2021** — C. Salvi, T. Cass, J. Foster, T. Lyons, W. Yang,
+  "The Signature Kernel Is the Solution of a Goursat PDE," *SIAM Journal
+  on Mathematics of Data Science* 3(3), 2021.
+- **Kidger et al. 2020** — P. Kidger, J. Morrill, J. Foster, T. Lyons,
+  "Neural Controlled Differential Equations for Irregular Time Series,"
+  *NeurIPS*, 2020.
+- **GJR 2018** — J. Gatheral, T. Jaisson, M. Rosenbaum, "Volatility Is
+  Rough," *Quantitative Finance* 18(6), 2018. *(The founding paper of the
+  rough-volatility literature.)*
+- **BFG 2016** — C. Bayer, P. Friz, J. Gatheral, "Pricing under Rough
+  Volatility," *Quantitative Finance* 16(6), 2016.
+- **LNP 2020** — T. Lyons, S. Nejad, I. Perez Arribas, "Non-parametric
+  Pricing and Hedging of Exotic Derivatives," *Applied Mathematical
+  Finance* 27(6), 2020, pp. 457–494.
+- **KLP 2020** — J. Kalsi, T. Lyons, I. Perez Arribas, "Optimal Execution
+  with Rough Path Signatures," *SIAM Journal on Financial Mathematics*
+  11(2), 2020.
+- **Cuchiero et al. 2023** — C. Cuchiero, G. Gazzani, S. Svaluto-Ferro,
+  "Signature-Based Models: Theory and Calibration," *SIAM Journal on
+  Financial Mathematics* 14(3), 2023.
+- **Cuchiero et al. 2025** — C. Cuchiero, G. Gazzani, J. Möller, S.
+  Svaluto-Ferro, "Joint Calibration to SPX and VIX Options with
+  Signature-Based Models," *Mathematical Finance* 35, 2025.
+- **Buehler et al. 2019** — H. Buehler, L. Gonon, J. Teichmann, B. Wood,
+  "Deep Hedging," *Quantitative Finance* 19(8), 2019.
+
+> **Currency check.** The fast-moving entries above (flow matching and its
+> guide, stochastic interpolants, consistency models, signature-based
+> volatility models) were re-verified as the field's prominent references
+> on **2026-07-11** by web search; the signature-volatility line remains
+> actively moving (joint SPX/VIX calibration reached *Mathematical Finance*
+> in 2025, with 2025–26 preprints extending it). Per the register rules,
+> treat them as the current organizing references, not settled canon.
 
 ---
 
