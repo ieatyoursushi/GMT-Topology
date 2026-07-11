@@ -92,6 +92,10 @@ $$
 \tilde y_{GBM}(x) := \tfrac{1}{200}\textstyle\sum_{p=1}^{200}\mathbb{1}\big[\exists s\le30: f^*(\cdot\,;S^{(p)}_s)=1\big] \quad \text{(200-path first-passage probability)}
 $$
 
+(here $S^{(p)}$ are simulated **geometric Brownian motion** paths — typed
+in `stochastic/NOTATION_STOCH.md` §1.3; the supporting Itô-calculus
+machinery is scoped to the planned `stochastic/20`)
+
 $$
 \text{(DIML, `src/Core/Simulation/SoftLabelBuilder.cs`, pinned 2026-07-01 @ 7a15f09)}.
 $$

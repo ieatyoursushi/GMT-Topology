@@ -1081,16 +1081,19 @@ GMT-Topology/
 │   ├── 07_rectifiability_and_hausdorff_measure.md
 │   ├── 08_currents.md
 │   └── 09_varifolds_and_finite_perimeter.md
-└── ml-geometry/                                  ← Phase 3: geometry–ML intersection
-    ├── NOTATION_ML.md
-    ├── 00_geometric_machine_learning_hub.md
-    ├── 10_information_geometry.md
-    ├── 11_optimal_transport.md
-    ├── 12_geometric_deep_learning.md
-    ├── 13_riemannian_optimization.md
-    ├── 14_gmt_for_shapes.md
-    ├── 15_topological_data_analysis.md
-    └── 16_capstone_directindexing_gmt.md
+├── ml-geometry/                                  ← Phase 3: geometry–ML intersection
+│   ├── NOTATION_ML.md
+│   ├── 00_geometric_machine_learning_hub.md
+│   ├── 10_information_geometry.md
+│   ├── 11_optimal_transport.md
+│   ├── 12_geometric_deep_learning.md
+│   ├── 13_riemannian_optimization.md
+│   ├── 14_gmt_for_shapes.md
+│   ├── 15_topological_data_analysis.md
+│   └── 16_capstone_directindexing_gmt.md
+└── stochastic/                                   ← Phase 4: stochastic analysis (skeleton)
+    ├── NOTATION_STOCH.md
+    └── 00_stochastic_analysis_hub.md              (deep dives 20–23 planned)
 ```
 
 ---

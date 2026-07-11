@@ -349,10 +349,13 @@ GMT-topology/
 │   ├── 07_rectifiability_and_hausdorff_measure.md ← deep dive
 │   ├── 08_currents.md                             ← deep dive
 │   └── 09_varifolds_and_finite_perimeter.md        ← deep dive
-└── ml-geometry/                                    ← Phase 3: geometry–ML intersection
-    ├── NOTATION_ML.md                             ← extends this file for Phase 3
-    ├── 00_geometric_machine_learning_hub.md        ← Phase 3 survey/hub
-    └── 10–16 …                                     ← Phase 3 deep dives + capstone
+├── ml-geometry/                                    ← Phase 3: geometry–ML intersection
+│   ├── NOTATION_ML.md                             ← extends this file for Phase 3
+│   ├── 00_geometric_machine_learning_hub.md        ← Phase 3 survey/hub
+│   └── 10–16 …                                     ← Phase 3 deep dives + capstone
+└── stochastic/                                     ← Phase 4: stochastic analysis (skeleton)
+    ├── NOTATION_STOCH.md                           ← extends this file + NOTATION_ML for Phase 4
+    └── 00_stochastic_analysis_hub.md                ← Phase 4 survey/hub (deep dives 20–23 planned)
 ```
 
 `00` and `01` are **survey-altitude**: they cover the whole arc quickly, with
