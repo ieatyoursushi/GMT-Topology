@@ -1091,13 +1091,21 @@ GMT-Topology/
 │   ├── 14_gmt_for_shapes.md
 │   ├── 15_topological_data_analysis.md
 │   └── 16_capstone_directindexing_gmt.md
-└── stochastic/                                   ← Phase 4: stochastic analysis + finance weave
-    ├── NOTATION_STOCH.md
-    ├── 00_stochastic_analysis_hub.md
-    ├── 20_brownian_motion_and_ito_calculus.md
-    ├── 21_fokker_planck_and_wasserstein_flows.md
-    ├── 22_score_based_diffusion_models.md
-    └── 23_path_signatures_and_rough_paths.md
+├── stochastic/                                   ← Phase 4: stochastic analysis + finance weave
+│   ├── NOTATION_STOCH.md
+│   ├── 00_stochastic_analysis_hub.md
+│   ├── 20_brownian_motion_and_ito_calculus.md
+│   ├── 21_fokker_planck_and_wasserstein_flows.md
+│   ├── 22_score_based_diffusion_models.md
+│   └── 23_path_signatures_and_rough_paths.md
+└── game-geometry/                                ← Phase 5: Unity-mechanics geometry + ZT weave
+    ├── NOTATION_GAME.md
+    ├── 00_game_mechanics_geometry_hub.md
+    ├── 30_rotations_quaternions_and_slerp.md
+    ├── 31_transforms_cameras_and_projection.md
+    ├── 32_collision_sdfs_and_rigid_bodies.md
+    ├── 33_navmesh_pathfinding_and_discrete_curvature.md
+    └── 34_rendering_measure_and_monte_carlo.md
 ```
 
 ---

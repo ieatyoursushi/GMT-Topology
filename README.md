@@ -44,6 +44,15 @@ stochastic/20_brownian_motion_and_ito_calculus.md    ─┐
 stochastic/21_fokker_planck_and_wasserstein_flows.md  │  Phase 4 deep dives; mathematical-finance/
 stochastic/22_score_based_diffusion_models.md         │  options-practitioner material woven in
 stochastic/23_path_signatures_and_rough_paths.md     ─┘
+
+game-geometry/NOTATION_GAME.md                                 ← Phase 5: extends the NOTATION stack
+game-geometry/00_game_mechanics_geometry_hub.md                 ← Phase 5 survey/hub (incl. the
+                                                                  Riemannian-vs-Lebesgue scorecard)
+game-geometry/30_rotations_quaternions_and_slerp.md  ─┐
+game-geometry/31_transforms_cameras_and_projection.md │  Phase 5 deep dives; Unity mechanics owned
+game-geometry/32_collision_sdfs_and_rigid_bodies.md   │  per document, with the author's own game
+game-geometry/33_navmesh_pathfinding_and_discrete_curvature.md  (Zombtoy, pinned) woven through
+game-geometry/34_rendering_measure_and_monte_carlo.md ─┘
 ```
 
 `00` and `01` move fast, at survey altitude, covering the whole arc from
@@ -72,6 +81,16 @@ read off the volatility surface, rough volatility and signature trading.
 Unlike Phase 3's single register, Phase 4 states a maturity ladder per
 document: Itô calculus is settled canon; diffusion models are
 Phase-3-style reconnaissance.
+**Phase 5** (`game-geometry/`) points the machinery at a running game
+engine: each deep dive owns a family of common Unity mechanics —
+quaternions/slerp, transform hierarchies and cameras, collision and
+SDFs, NavMesh pathfinding, rendering and sampling — proves the
+load-bearing facts at anchor depth, and weaves in the author's own Unity
+game **Zombtoy** as the pinned case study (the role DIML plays for
+Phases 3–4). Its hub adjudicates the phase's founding wager ("more
+Riemannian than Lebesgue?"): the control layer is Riemannian as guessed,
+but collision, navigation, and light run on measure theory — half the
+engine is Lebesgue in a trench coat.
 
 **Notational convention.** Every object in these notes is given an explicit,
 redundant type signature at the moment it's introduced — domain, codomain,
