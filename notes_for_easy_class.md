@@ -8,10 +8,7 @@ Familiar notation	Measure-theoretic interpretation
 \(P(X=a\mid Y=b)\)	\(\dfrac{P(\{X=a\}\cap\{Y=b\})}{P(\{Y=b\})}\), if denominator is positive
 
 
-
-Yeah — the first set was mostly foundational exercises. If we're aiming at the upper end of a first-year graduate measure-theoretic probability course, I'd move past proving sigma-algebra closure properties and into problems where you have to combine several major theorems, construct counterexamples, and reason about convergence in function spaces.
-
-For PSTAT 210, I'd target the level where you need to understand not only what theorems say, but exactly which hypotheses make them true. The following is a challenging, research-oriented mock homework set, drawing on the kind of material found in advanced graduate probability. It is not a verified past UCSB assignment, and the hardest problems may go beyond the course's actual syllabus.
+ 
 
 # PSTAT 210 — Advanced Homework Set
 
